@@ -214,7 +214,7 @@ body::after {
 
 .site-header-logo {
   display: block;
-  width: clamp(380px, 34vw, 540px);
+  width: clamp(340px, 30.5vw, 480px);
   color: inherit;
 }
 
@@ -224,7 +224,7 @@ body::after {
       max(20px, env(safe-area-inset-left, 0px));
   }
   .site-header-logo {
-    width: 265px;
+    width: 240px;
   }
 }
 
