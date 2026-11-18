@@ -532,9 +532,9 @@ body::after {
   }
 }
 
-/* The page has length below the headline so scrolling (and the logo motion) can happen. */
-.scroll-length {
-  min-height: 240svh;
+/* Room at the foot of the page; sections set their own spacing. */
+.page {
+  padding-bottom: clamp(96px, 14vw, 200px);
 }
 
 /* ---- Headline (components/hero.tsx), after pantheon.inc ---- */
@@ -748,5 +748,252 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .ambient span {
     animation: none;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Proof: numbers and client wall (components/proof.tsx, stats.tsx) ---- */
+
+.proof {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(28px, 3vw, 44px);
+  padding: clamp(56px, 8vw, 120px) max(36px, env(safe-area-inset-right, 0px)) 0
+    max(36px, env(safe-area-inset-left, 0px));
+}
+
+.proof-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* eyebrow: the nav's mono label, led by a small cross tick */
+.proof-eyebrow {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family:
+    var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--ink) / 0.6);
+}
+
+.proof-eyebrow::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat,
+    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat;
+}
+
+/* Numbers: four columns, each under its own hairline. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 clamp(20px, 3vw, 48px);
+  margin: 0 0 clamp(40px, 5vw, 72px);
+}
+
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse; /* number above its label, label read first */
+  justify-content: flex-end;
+  gap: 14px;
+  padding-top: clamp(20px, 2.2vw, 30px);
+  transition: opacity 0.35s ease;
+}
+
+/* the rule: draws in on reveal, turns marker green on hover */
+.stat::before,
+.stat::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: left;
+}
+
+.stat::before {
+  background: rgb(var(--ink) / 0.18);
+}
+
+.stat::after {
+  background: var(--marker);
+  transform: scaleX(0);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stats[data-shown] .stat::before {
+  animation: stat-rule 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i) * 140ms);
+}
+
+@keyframes stat-rule {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.stats:hover .stat {
+  opacity: 0.45;
+}
+
+.stats .stat:hover {
+  opacity: 1;
+}
+
+.stat:hover::after {
+  transform: scaleX(1);
+}
+
+.stat-value {
+  display: grid;
+  margin: 0;
+  font-weight: 300;
+  font-size: clamp(2.6rem, 4.7vw, 5.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+  color: rgb(var(--ink-strong));
+  white-space: nowrap;
+}
+
+.stat-sizer,
+.stat-live {
+  grid-area: 1 / 1;
+}
+
+.stat-sizer {
+  visibility: hidden;
+}
+
+.stat-plus {
+  margin-left: 0.04em;
+  font-family: var(--font-serif), "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--marker);
+}
+
+.stat-label {
+  max-width: 22ch;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.45;
+  color: rgb(var(--ink) / 0.62);
+  text-wrap: pretty;
+}
+
+/* Client wall: a grid of hairline cells. */
+.clients {
+  --cols: 5;
+  --logo-unit: clamp(30px, 3.4vw, 50px);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(var(--ink) / 0.12);
+  border-left: 1px solid rgb(var(--ink) / 0.12);
+}
+
+.client {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 2.1 / 1;
+  border-right: 1px solid rgb(var(--ink) / 0.12);
+  border-bottom: 1px solid rgb(var(--ink) / 0.12);
+  transition: background-color 0.4s ease;
+}
+
+.client:hover {
+  background: rgb(var(--ink) / 0.035);
+}
+
+/* one ink for every logo; sized so wide and square marks weigh the same */
+.client-logo {
+  display: block;
+  width: calc(var(--logo-unit) * var(--grow));
+  max-width: 78%;
+  aspect-ratio: var(--ratio);
+  max-height: calc(var(--logo-unit) * 0.9);
+  background: rgb(var(--ink) / 0.6);
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+  transition:
+    background-color 0.35s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.client:hover .client-logo {
+  background: rgb(var(--ink-strong));
+  transform: scale(1.04);
+}
+
+/* logos rise in as the wall scrolls into view, where supported */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .client-logo {
+      animation: client-in linear both;
+      animation-timeline: view();
+      /* done once fully on screen, so the last row finishes at the page end */
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes client-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@media (max-width: 899px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 44px;
+  }
+  .clients {
+    --cols: 3;
+    --logo-unit: clamp(26px, 5.4vw, 40px);
+  }
+}
+
+@media (max-width: 639px) {
+  .proof {
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+  .stat-value {
+    font-size: clamp(2.1rem, 9.6vw, 2.9rem);
+  }
+  .stats {
+    column-gap: 20px;
+  }
+  .clients {
+    --cols: 2;
+    --logo-unit: clamp(26px, 8vw, 36px);
   }
 }
