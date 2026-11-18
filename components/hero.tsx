@@ -2,35 +2,18 @@ import { MarkerCircle } from "@/components/marker-circle";
 import { BACKERS } from "@/lib/backers";
 
 /**
- * A "Latest" news link sits above it (after pantheon.inc).
  * Headline: white for the name and the key phrases, muted for the words that
  * connect them. On wider screens it breaks into its three parts: who we are,
  * what we build, and what for. "safe" and "under control." switch to the serif italic and are
  * circled in marker; the circles draw in after the header logo's intro
  * (0.7s wait + 0.63s motion). Below it, the backers line: each name led by its
- * mark in a square badge, all centred on one row.
+ * mark in a square badge, all centred on one row. Then the "Latest" news
+ * link (after pantheon.inc), which leads straight into "trusted by".
  */
 export function Hero() {
   const last = BACKERS.length - 1;
   return (
     <section className="hero" aria-labelledby="hero-title">
-      <p className="hero-latest">
-        <a
-          href="https://blogs.nvidia.com/blog/korea-secure-agentic-ai/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="latest-tag">Latest</span>
-          <span className="latest-text">
-            NVIDIA: Hyundai Motor Group and AIM Intelligence explore NVIDIA
-            NemoClaw and OpenShell for secure enterprise agents
-          </span>
-          <span className="latest-arrow" aria-hidden="true">
-            →
-          </span>
-        </a>
-      </p>
-
       <h1 id="hero-title" className="hero-title">
         AIM Intelligence{" "}
         <span className="hero-muted">is an applied research lab</span>
@@ -80,6 +63,23 @@ export function Hero() {
             </span>
           </span>
         ))}
+      </p>
+
+      <p className="hero-latest">
+        <a
+          href="https://blogs.nvidia.com/blog/korea-secure-agentic-ai/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="latest-tag">Latest</span>
+          <span className="latest-text">
+            NVIDIA: Hyundai Motor Group and AIM Intelligence explore NVIDIA
+            NemoClaw and OpenShell for secure enterprise agents
+          </span>
+          <span className="latest-arrow" aria-hidden="true">
+            →
+          </span>
+        </a>
       </p>
     </section>
   );

@@ -29,9 +29,8 @@ const slug = (s: string) =>
 
 /**
  * Footer: a one-line sign-off, link columns (sans headings over tracked mono
- * links, after juicebox.ai), the legal line, and the full AIM INTELLIGENCE
- * logo spanning the page width, its foot cropped by the page edge (after
- * attentionx.org).
+ * links, after juicebox.ai), the copyright line, and the full AIM INTELLIGENCE
+ * logo spanning the page width (after attentionx.org).
  */
 export function SiteFooter() {
   return (
@@ -70,7 +69,6 @@ export function SiteFooter() {
 
       <div className="footer-legal">
         <p>© 2026 AIM Intelligence. All rights reserved.</p>
-        <p>AIM Intelligence™ is a trademark of its respective owner.</p>
       </div>
 
       <div className="footer-mark" aria-hidden="true">

@@ -28,12 +28,7 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   drawn beneath the text, and the line holding it gets just enough margin to clear its neighbours.
 - Backers line: Samsung, Hyundai, LG Electronics, NAVER, and Mirae Asset Capital. `lib/backers.ts` (Simple Icons; Mirae Asset swoosh from Wikimedia Commons), each mark
   in a square badge, all items centred on one flex row. `scale` sets each mark's size in its badge.
-- Proof section (`components/proof.tsx`, `.proof` rules), under the headline:
-  - Numbers (`components/stats.tsx`): 160+ models evaluated, 30+ enterprise customers, 12M+ end
-    users covered by guardrails, 100,000+ live agents protected. Final values are in the markup; on
-    scroll-in each counts up (digits written via refs, no re-render) while its rule draws in. Hover
-    dims the others and fills the rule with `--marker`. The `+` is the serif italic in marker green.
-- Latest news link above the headline (`.hero-latest`): outlined mono LATEST tag + underlined
+- Latest news link under the headline and backers line (`.hero-latest`): outlined mono LATEST tag + underlined
   headline linking out (NVIDIA blog), after pantheon.inc.
 - Trusted by (`components/trusted.tsx`, `lib/trusted.ts`): handwritten note (Nothing You Could Do,
   `--font-hand`) with a drawn arrow, then two logo rows drifting in opposite directions (60s linear,
@@ -42,7 +37,7 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   trims heavy marks. PSG is a typeset placeholder until the right PSG logo is confirmed.
 - Footer (`components/site-footer.tsx`): "From Seoul 🇰🇷 and San Francisco 🇺🇸 to the world 🌍",
   link columns (sans headings, tracked mono links, after juicebox.ai; links are placeholders), the
-  © / trademark line, and the full logo across the page width cropped at its foot (after attentionx.org).
+  © line, and the whole logo across the page width (after attentionx.org).
 - The scrollbar is hidden.
 - Respect `prefers-reduced-motion` for any new animation.
 - Before committing: `npm run lint && npm run typecheck && npm run build`, and `npm run format`.

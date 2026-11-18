@@ -491,10 +491,9 @@ body::after {
   justify-content: center;
   align-items: flex-start;
   gap: clamp(28px, 3.2vw, 48px);
-  /* first screen, less the header; the headline sits a little above centre */
-  min-height: calc(100svh - 120px);
-  padding: 0 max(36px, env(safe-area-inset-right, 0px)) 12svh
-    max(36px, env(safe-area-inset-left, 0px));
+  /* opens the page a little below the header; "trusted by" follows the Latest link */
+  padding: clamp(96px, 16svh, 200px) max(36px, env(safe-area-inset-right, 0px))
+    0 max(36px, env(safe-area-inset-left, 0px));
 }
 
 .hero-title {
@@ -537,8 +536,8 @@ body::after {
 
 @media (max-width: 639px) {
   .hero {
-    min-height: calc(100svh - 80px);
-    padding: 0 max(20px, env(safe-area-inset-right, 0px)) 10svh
+    padding: clamp(72px, 12svh, 120px)
+      max(20px, env(safe-area-inset-right, 0px)) 0
       max(20px, env(safe-area-inset-left, 0px));
   }
   .hero-title {
@@ -707,173 +706,12 @@ body::after {
   border: 0;
 }
 
-/* ---- Proof: numbers (components/proof.tsx, stats.tsx) ---- */
-
-.proof {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: clamp(28px, 3vw, 44px);
-  padding: clamp(56px, 8vw, 120px) max(36px, env(safe-area-inset-right, 0px)) 0
-    max(36px, env(safe-area-inset-left, 0px));
-}
-
-.proof-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* eyebrow: the nav's mono label, led by a small cross tick */
-.proof-eyebrow {
-  margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family:
-    var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgb(var(--ink) / 0.6);
-}
-
-.proof-eyebrow::before {
-  content: "";
-  width: 9px;
-  height: 9px;
-  background:
-    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat,
-    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat;
-}
-
-/* Numbers: four columns, each under its own hairline. */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0 clamp(20px, 3vw, 48px);
-  margin: 0;
-}
-
-.stat {
-  position: relative;
-  display: flex;
-  flex-direction: column-reverse; /* number above its label, label read first */
-  justify-content: flex-end;
-  gap: 14px;
-  padding-top: clamp(20px, 2.2vw, 30px);
-  transition: opacity 0.35s ease;
-}
-
-/* the rule: draws in on reveal, turns marker green on hover */
-.stat::before,
-.stat::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  transform-origin: left;
-}
-
-.stat::before {
-  background: rgb(var(--ink) / 0.18);
-}
-
-.stat::after {
-  background: var(--marker);
-  transform: scaleX(0);
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.stats[data-shown] .stat::before {
-  animation: stat-rule 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i) * 140ms);
-}
-
-@keyframes stat-rule {
-  from {
-    transform: scaleX(0);
-  }
-}
-
-.stats:hover .stat {
-  opacity: 0.45;
-}
-
-.stats .stat:hover {
-  opacity: 1;
-}
-
-.stat:hover::after {
-  transform: scaleX(1);
-}
-
-.stat-value {
-  display: grid;
-  margin: 0;
-  font-weight: 300;
-  font-size: clamp(2.6rem, 4.7vw, 5.2rem);
-  line-height: 0.95;
-  letter-spacing: -0.045em;
-  font-variant-numeric: tabular-nums;
-  color: rgb(var(--ink-strong));
-  white-space: nowrap;
-}
-
-.stat-sizer,
-.stat-live {
-  grid-area: 1 / 1;
-}
-
-.stat-sizer {
-  visibility: hidden;
-}
-
-.stat-plus {
-  margin-left: 0.04em;
-  font-family: var(--font-serif), "Instrument Serif", Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--marker);
-}
-
-.stat-label {
-  max-width: 22ch;
-  font-size: clamp(14px, 1.05vw, 16px);
-  line-height: 1.45;
-  color: rgb(var(--ink) / 0.62);
-  text-wrap: pretty;
-}
-
-@media (max-width: 899px) {
-  .stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 44px;
-  }
-}
-
-@media (max-width: 639px) {
-  .proof {
-    padding-left: max(20px, env(safe-area-inset-left, 0px));
-    padding-right: max(20px, env(safe-area-inset-right, 0px));
-  }
-  .stat-value {
-    font-size: clamp(2.1rem, 9.6vw, 2.9rem);
-  }
-  .stats {
-    column-gap: 20px;
-  }
-}
-
 /* ---- Trusted by: handwritten note and two drifting logo rows (components/trusted.tsx) ---- */
 
 .trusted {
   position: relative;
   z-index: 1;
-  padding-top: clamp(72px, 9vw, 140px);
+  padding-top: clamp(40px, 5vw, 72px);
 }
 
 /* the note sits over the left third, its arrow dropping toward the first row */
@@ -889,7 +727,7 @@ body::after {
   font-family: var(--font-hand), "Nothing You Could Do", cursive;
   font-size: clamp(26px, 2.3vw, 34px);
   line-height: 1;
-  color: rgb(var(--ink) / 0.5);
+  color: rgb(var(--ink) / 0.82);
   transform: rotate(-5deg);
   transform-origin: left bottom;
   white-space: nowrap;
@@ -905,8 +743,8 @@ body::after {
 }
 
 .trusted-arrow path {
-  stroke: rgb(var(--ink) / 0.5);
-  stroke-width: 1.6;
+  stroke: rgb(var(--ink) / 0.78);
+  stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
@@ -914,19 +752,13 @@ body::after {
   stroke-dashoffset: 0;
 }
 
-/* the arrow draws itself as the note scrolls into view, where supported */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .trusted-arrow-line {
-      animation: arrow-draw linear both;
-      animation-timeline: view();
-      animation-range: entry 20% cover 40%;
-    }
-    .trusted-arrow-head {
-      animation: arrow-draw linear both;
-      animation-timeline: view();
-      animation-range: cover 34% cover 44%;
-    }
+/* the arrow draws itself once the headline circles have finished */
+@media (prefers-reduced-motion: no-preference) {
+  .trusted-arrow-line {
+    animation: arrow-draw 0.8s cubic-bezier(0.42, 0.08, 0.22, 1) 3.5s both;
+  }
+  .trusted-arrow-head {
+    animation: arrow-draw 0.35s cubic-bezier(0.42, 0.08, 0.22, 1) 4.25s both;
   }
 }
 
@@ -1029,10 +861,10 @@ body::after {
   }
 }
 
-/* ---- Latest news link above the headline (components/hero.tsx) ---- */
+/* ---- Latest news link under the headline (components/hero.tsx) ---- */
 
 .hero-latest {
-  margin: 0;
+  margin: clamp(8px, 1.5vw, 24px) 0 0;
   max-width: 100%;
 }
 
@@ -1206,36 +1038,18 @@ body::after {
   margin: 0;
 }
 
-/* the full logo across the page width, its foot cropped by the page edge */
+/* the full logo across the page width, whole */
 .footer-mark {
-  --mark-w: calc(100vw - var(--gutter) * 1.3);
-  margin: clamp(24px, 3vw, 40px) calc(var(--gutter) * -0.35) 0;
-  height: calc(var(--mark-w) * 1052 / 11425 * 0.82);
-  overflow: hidden;
+  margin-top: clamp(28px, 3.5vw, 48px);
+  padding-bottom: clamp(24px, 3vw, 44px);
 }
 
 .footer-mark svg {
   display: block;
   width: 100%;
   height: auto;
-  fill: rgb(var(--ink) / 0.09);
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .footer-mark svg {
-      animation: mark-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 100%;
-    }
-  }
-}
-
-@keyframes mark-rise {
-  from {
-    transform: translateY(18%);
-    opacity: 0.4;
-  }
+  overflow: visible;
+  fill: rgb(var(--ink) / 0.1);
 }
 
 @media (max-width: 899px) {
