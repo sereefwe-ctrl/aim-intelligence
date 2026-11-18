@@ -711,7 +711,7 @@ body::after {
 .trusted {
   position: relative;
   z-index: 1;
-  padding-top: clamp(28px, 3.2vw, 52px);
+  padding-top: clamp(64px, 7vw, 120px);
 }
 
 /*
