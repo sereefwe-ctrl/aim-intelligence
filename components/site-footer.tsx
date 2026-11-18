@@ -35,15 +35,14 @@ const href = (label: string) =>
       .replace(/^-|-$/g, "");
 
 /**
- * Footer, after exa.ai: the company name, a closing headline in the serif, a
- * rule across the screen, link columns (serif headings over sans links), then
- * the copyright and sign-off line. Last, the full AIM INTELLIGENCE logo running
- * edge to edge, flush with the bottom of the page (after attentionx.org).
+ * Footer, after exa.ai: a closing headline in the serif, a rule across the
+ * screen, link columns (serif headings over sans links), then the copyright
+ * and sign-off line. Last, the full AIM INTELLIGENCE logo running edge to
+ * edge, flush with the bottom of the page (after attentionx.org).
  */
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <p className="footer-name">AIM Intelligence</p>
       <p className="footer-headline">
         The question is no longer “What can we do with AI?”
         <br /> It is “Who keeps it under control?”

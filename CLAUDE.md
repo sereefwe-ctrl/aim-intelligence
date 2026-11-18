@@ -37,7 +37,7 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
 - News page (`app/news/page.tsx`, `components/news.tsx`): its own route, not on the home page. Large
   light "News" title, then the articles newest first: date, source lead-in + headline, arrow; each row
   links out to the article (after attentionx.org). Dates are the articles' own (arXiv: first version).
-- Footer (`components/site-footer.tsx`), after exa.ai: "AIM Intelligence" label, closing headline in
+- Footer (`components/site-footer.tsx`), after exa.ai: closing headline in
   upright Instrument Serif ("The question is no longer “What can we do with AI?” It is “Who keeps it
   under control?”", second sentence on its own line), a hairline across the screen, link columns (serif
   headings, sans links; links are placeholders), then the © line and "From Seoul 🇰🇷 and San Francisco 🇺🇸

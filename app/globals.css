@@ -851,18 +851,10 @@ body::after {
   padding: 0 var(--gutter);
 }
 
-/* company name, then the closing headline (after exa.ai) */
-.footer-name {
+/* the closing headline (after exa.ai) */
+.footer-headline {
   margin: 0;
   padding-top: clamp(96px, 11vw, 168px);
-  font-size: 15px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: rgb(var(--ink) / 0.82);
-}
-
-.footer-headline {
-  margin: clamp(24px, 2.6vw, 40px) 0 0;
   font-family: var(--font-serif), "Instrument Serif", Georgia, serif;
   font-size: clamp(38px, 4.6vw, 72px);
   font-weight: 400;
