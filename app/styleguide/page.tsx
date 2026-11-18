@@ -29,7 +29,7 @@ export default function StyleGuide() {
         <h3 className="mb-4 text-sm font-medium text-muted uppercase">
           Colors
         </h3>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
           {colors.map((c) => (
             <div key={c}>
               <div

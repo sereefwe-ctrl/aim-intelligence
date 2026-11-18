@@ -1,29 +1,20 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Change colors here and every component follows.
- * Use them in markup as Tailwind classes: bg-surface, text-muted, border-line, bg-accent ...
+ * Design tokens: dark & futuristic. Change colors here and every component follows.
+ * Tailwind classes: bg-background, text-foreground, text-muted, bg-surface, border-line,
+ * bg-accent / text-accent (cyan), bg-accent-2 / text-accent-2 (violet).
  */
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --muted: #475569;
-  --surface: #f1f5f9;
-  --line: #e2e8f0;
-  --accent: #2563eb;
-  --accent-foreground: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0b1120;
-    --foreground: #e2e8f0;
-    --muted: #94a3b8;
-    --surface: #111a2e;
-    --line: #1e293b;
-    --accent: #60a5fa;
-    --accent-foreground: #0b1120;
-  }
+  --background: #05070d;
+  --foreground: #e6edf7;
+  --muted: #8b98ad;
+  --surface: #0c111c;
+  --line: #1a2233;
+  --accent: #22d3ee;
+  --accent-2: #8b5cf6;
+  --accent-foreground: #05070d;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -33,6 +24,7 @@
   --color-surface: var(--surface);
   --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-foreground: var(--accent-foreground);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
@@ -46,4 +38,29 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Cyan-to-violet gradient text for highlights. */
+@utility text-gradient {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Faint grid that fades out toward the edges; used behind the hero. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--line) 70%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--line) 70%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
 }

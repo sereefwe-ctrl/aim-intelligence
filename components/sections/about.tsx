@@ -7,7 +7,7 @@ export function About() {
       id="about"
       title={site.about.title}
       intro={site.about.body}
-      className="bg-surface"
+      className="border-y border-line bg-surface/40"
     />
   );
 }

@@ -4,50 +4,78 @@
  */
 export const site = {
   name: "AIM Intelligence",
-  description: "Intelligence, aimed at what matters.",
+  description: "Independent data and research that anyone can understand.",
   url: "https://aim-intelligence-sukone-hong-s-projects.vercel.app",
 
   nav: [
-    { label: "Services", href: "#services" },
+    { label: "Research", href: "#research" },
+    { label: "Approach", href: "#approach" },
     { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
   ],
 
   hero: {
-    eyebrow: "Welcome",
-    title: "Intelligence, aimed at what matters.",
-    body: "This is placeholder copy. Replace it with a one-sentence promise of what you do and who it's for.",
-    primaryCta: { label: "Get in touch", href: "#contact" },
-    secondaryCta: { label: "See services", href: "#services" },
+    eyebrow: "Data & Research",
+    titleStart: "Making sense of the data that",
+    titleHighlight: "shapes our world.",
+    body: "AIM Intelligence turns complex data into clear, independent research that anyone can understand.",
+    primaryCta: { label: "Explore our research", href: "#research" },
+    secondaryCta: { label: "How we work", href: "#approach" },
   },
 
-  services: {
-    title: "What we do",
-    body: "Three short, concrete offerings. Swap these for your own.",
+  research: {
+    title: "What we study",
+    body: "Our research areas. These are placeholders; we'll set the real ones together.",
     items: [
       {
-        title: "Strategy",
-        body: "Describe your first offering in a sentence or two.",
+        icon: "chart",
+        title: "Economy & markets",
+        body: "How money, prices and jobs are changing, explained plainly.",
       },
       {
-        title: "Build",
-        body: "Describe your second offering in a sentence or two.",
+        icon: "cpu",
+        title: "Technology & AI",
+        body: "What new technology means for everyday life and work.",
       },
       {
-        title: "Scale",
-        body: "Describe your third offering in a sentence or two.",
+        icon: "users",
+        title: "Society & people",
+        body: "Trends in how people live, learn and connect.",
+      },
+      {
+        icon: "globe",
+        title: "Environment",
+        body: "Climate, energy and resources, measured and made clear.",
+      },
+    ],
+  },
+
+  approach: {
+    title: "How we work",
+    body: "Every piece of research follows the same three steps.",
+    steps: [
+      {
+        title: "Collect",
+        body: "We gather data from trusted, transparent sources.",
+      },
+      {
+        title: "Analyze",
+        body: "We test it rigorously and look for what actually matters.",
+      },
+      {
+        title: "Explain",
+        body: "We publish findings in plain language anyone can follow.",
       },
     ],
   },
 
   about: {
-    title: "About",
-    body: "A short paragraph about the team, the story, or the approach. Keep it human and specific.",
+    title: "About AIM Intelligence",
+    body: "Placeholder: a short paragraph about who you are, why you started, and what makes your research trustworthy.",
   },
 
   contact: {
-    title: "Let's talk",
-    body: "Tell visitors how to reach you.",
-    cta: { label: "Email us", href: "mailto:hello@example.com" },
+    title: "Stay curious",
+    body: "Questions about our research? We'd love to hear from you.",
+    cta: { label: "Get in touch", href: "mailto:hello@example.com" },
   },
 } as const;
