@@ -303,12 +303,12 @@ body::after {
 
 .hero-title {
   margin: 0;
-  max-width: 21em;
-  font-family: var(--font-dm-sans), "Geist", Arial, Helvetica, sans-serif;
+  max-width: 24em;
+  font-family: var(--font-belleza), Optima, Candara, "Segoe UI", sans-serif;
   font-weight: 400;
-  font-size: clamp(2.25rem, 4.4vw, 4.75rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.75rem, 3vw, 3.1rem);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
   color: #ffffff;
   text-wrap: balance;
 }
@@ -324,49 +324,19 @@ body::after {
       max(20px, env(safe-area-inset-left, 0px));
   }
   .hero-title {
-    font-size: clamp(1.85rem, 8.8vw, 2.6rem);
+    font-size: clamp(1.6rem, 7.4vw, 2.1rem);
   }
 }
 
-/* Hand-drawn marker loops around words in the headline. */
-.hero-circled {
+/* Hand-drawn marker loops around words (components/marker-circle.tsx). */
+.marker-circle {
   position: relative;
   display: inline-block;
   white-space: nowrap;
 }
 
-.hero-loop {
+.marker-circle-svg {
   position: absolute;
-  /* room around the word, so the loop circles it loosely */
-  top: -0.26em;
-  left: -0.34em;
-  width: calc(100% + 0.7em);
-  height: calc(100% + 0.56em);
   overflow: visible;
   pointer-events: none;
-}
-
-.hero-loop path {
-  fill: none;
-  stroke: #22b07d;
-  stroke-width: 0.055em;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: hero-loop-draw 0.75s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-@keyframes hero-loop-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-loop path {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
 }

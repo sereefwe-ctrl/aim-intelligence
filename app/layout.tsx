@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-// DM Sans (variable weight and optical size), self-hosted from @fontsource.
-const dmSans = localFont({
-  src: "../node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-opsz-normal.woff2",
-  variable: "--font-dm-sans",
-  weight: "100 1000",
+// Belleza: a humanist sans with Optima-like flared strokes, the same lineage
+// as the logo's lettering. Self-hosted from @fontsource.
+const belleza = localFont({
+  src: "../node_modules/@fontsource/belleza/files/belleza-latin-400-normal.woff2",
+  variable: "--font-belleza",
+  weight: "400",
   display: "swap",
 });
 
@@ -22,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={dmSans.variable}>
+    <html lang="en" className={belleza.variable}>
       <body>{children}</body>
     </html>
   );
