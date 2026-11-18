@@ -1,37 +1,43 @@
 import Link from "next/link";
-import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/ui/logo-mark";
 import { site } from "@/lib/site";
 
+/** Full-width nav: links spread across the page with the mark in the centre. */
 export function Header() {
+  const [a, b, c, d] = site.nav;
+  const link =
+    "font-mono text-xs tracking-widest text-muted uppercase transition-colors hover:text-foreground";
   return (
-    <header className="sticky top-0 z-40 border-b border-line/60 bg-background/70 backdrop-blur-md">
-      <Container className="flex h-16 items-center justify-between gap-4">
+    <header className="relative z-10 px-4 pt-5 sm:px-6">
+      <nav className="hidden grid-cols-5 items-center sm:grid">
+        <Link href={a.href} className={link}>
+          {a.label}
+        </Link>
+        <Link href={b.href} className={`${link} justify-self-center`}>
+          {b.label}
+        </Link>
         <Link
           href="/"
-          className="flex items-center gap-2 font-semibold tracking-tight"
+          className="justify-self-center text-foreground"
+          aria-label={site.name}
         >
-          <span
-            className="size-2.5 rounded-full bg-accent shadow-[0_0_12px] shadow-accent"
-            aria-hidden
-          />
-          {site.name}
+          <LogoMark className="size-7" />
         </Link>
-        <nav className="hidden items-center gap-8 text-sm text-muted sm:flex">
-          {site.nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="transition hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <Button href={site.hero.primaryCta.href} size="sm" variant="secondary">
-          Research
-        </Button>
-      </Container>
+        <Link href={c.href} className={`${link} justify-self-center`}>
+          {c.label}
+        </Link>
+        <Link href={d.href} className={`${link} justify-self-end`}>
+          {d.label}
+        </Link>
+      </nav>
+      <nav className="flex items-center justify-between sm:hidden">
+        <Link href="/" className="text-foreground" aria-label={site.name}>
+          <LogoMark className="size-7" />
+        </Link>
+        <Link href={d.href} className={link}>
+          {d.label} +
+        </Link>
+      </nav>
     </header>
   );
 }

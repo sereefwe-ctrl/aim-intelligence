@@ -1,34 +1,33 @@
 @import "tailwindcss";
 
 /*
- * Design tokens: dark & futuristic. Change colors here and every component follows.
- * Tailwind classes: bg-background, text-foreground, text-muted, bg-surface, border-line,
- * bg-accent / text-accent (cyan), bg-accent-2 / text-accent-2 (violet).
+ * Design tokens: black & grey with film grain. Change colors here and every component follows.
+ * Tailwind classes: bg-background, bg-surface, text-foreground, text-muted, text-faint,
+ * border-line, text-accent / bg-accent.
  */
 :root {
-  --background: #05070d;
-  --foreground: #e6edf7;
-  --muted: #8b98ad;
-  --surface: #0c111c;
-  --line: #1a2233;
-  --accent: #22d3ee;
-  --accent-2: #8b5cf6;
-  --accent-foreground: #05070d;
+  --background: #060606;
+  --surface: #10100f;
+  --foreground: #edebe6;
+  --muted: #8c8a85;
+  --faint: #3b3a37;
+  --line: #262624;
+  --accent: #ff8a4c;
   color-scheme: dark;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
-  --color-surface: var(--surface);
+  --color-faint: var(--faint);
   --color-line: var(--line);
   --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
-  --color-accent-foreground: var(--accent-foreground);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
 }
 
 html {
@@ -40,27 +39,80 @@ body {
   color: var(--foreground);
 }
 
-/* Cyan-to-violet gradient text for highlights. */
-@utility text-gradient {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Film grain over the whole page. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -100%;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.13;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1.2s steps(6) infinite;
 }
 
-/* Faint grid that fades out toward the edges; used behind the hero. */
-@utility bg-grid {
-  background-image:
-    linear-gradient(
-      to right,
-      color-mix(in oklab, var(--line) 70%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--line) 70%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+@keyframes grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3%, 2%);
+  }
+  40% {
+    transform: translate(2%, -4%);
+  }
+  60% {
+    transform: translate(-4%, -1%);
+  }
+  80% {
+    transform: translate(3%, 3%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Soft grey glow on black, used behind the hero. */
+@utility bg-vignette {
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 40%,
+    #1c1c1b 0%,
+    var(--background) 70%
+  );
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@utility animate-spin-slow {
+  animation: spin-slow 90s linear infinite;
+}
+
+@utility animate-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after,
+  .animate-spin-slow {
+    animation: none;
+  }
+  .animate-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }

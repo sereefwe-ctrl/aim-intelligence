@@ -26,8 +26,8 @@ npm run dev
 | Reusable building blocks    | `components/ui/*.tsx`               |
 | Favicon                     | `app/icon.svg`                      |
 
-Color tokens are exposed to Tailwind as `bg-background`, `text-foreground`, `text-muted`,
-`bg-surface`, `border-line`, `bg-accent`, `text-accent-foreground`.
+Color tokens are exposed to Tailwind as `bg-background`, `bg-surface`, `text-foreground`,
+`text-muted`, `text-faint`, `border-line`, `text-accent`.
 
 ## Scripts
 
