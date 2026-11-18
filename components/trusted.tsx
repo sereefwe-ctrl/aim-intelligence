@@ -11,7 +11,7 @@ function logoHeight(ratio: number) {
  * "trusted by": a handwritten note with a hand-drawn arrow, over two rows of
  * logos drifting in opposite directions (after airfoil.studio). Each track
  * holds its logos four times and slides by half its length, so the loop is
- * seamless on any screen width. Hovering a row pauses it.
+ * seamless on any screen width. The pointer has no effect on it.
  */
 export function Trusted() {
   return (

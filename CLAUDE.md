@@ -30,7 +30,7 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   in a square badge, all items centred on one flex row. `scale` sets each mark's size in its badge.
 - Trusted by (`components/trusted.tsx`, `lib/trusted.ts`): handwritten note (Nothing You Could Do,
   `--font-hand`) with a tapered pen-stroke arrow (`lib/arrow.ts`), then two logo rows drifting in opposite directions (60s linear,
-  track = logos x4 sliding -50%, edge fades, pause on hover), after airfoil.studio. Logos are one-
+  track = logos x4 sliding -50%, edge fades, no hover effect), after airfoil.studio. Logos are one-
   colour SVGs in `public/trusted/` drawn via CSS masks; height balanced by aspect ratio, `scale`
   trims heavy marks. PSG is a typeset placeholder until the right PSG logo is confirmed.
 - News (`components/news.tsx`, `#news`): after the marquee, newest first; date, source lead-in +

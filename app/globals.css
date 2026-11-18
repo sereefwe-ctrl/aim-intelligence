@@ -825,10 +825,6 @@ body::after {
   animation-direction: reverse;
 }
 
-.marquee-row:hover .marquee-track {
-  animation-play-state: paused;
-}
-
 @keyframes marquee {
   to {
     transform: translateX(-50%);
@@ -849,11 +845,6 @@ body::after {
   background: rgb(var(--ink) / 0.42);
   -webkit-mask: var(--logo) center / contain no-repeat;
   mask: var(--logo) center / contain no-repeat;
-  transition: background-color 0.2s ease;
-}
-
-.marquee-item:hover .marquee-logo {
-  background: rgb(var(--ink) / 0.78);
 }
 
 @media (prefers-reduced-motion: reduce) {
