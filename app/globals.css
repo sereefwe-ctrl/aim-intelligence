@@ -198,3 +198,91 @@ body::after {
     transition: none !important;
   }
 }
+
+/* ---- Header and motion logo (components/site-header.tsx, components/aim-logo.tsx) ---- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: 28px max(24px, env(safe-area-inset-right, 0px)) 28px
+    max(24px, env(safe-area-inset-left, 0px));
+  color: #f2f0ea;
+}
+
+.site-header-logo {
+  display: block;
+  width: 240px;
+  color: inherit;
+}
+
+@media (max-width: 639px) {
+  .site-header {
+    padding-block: 20px;
+  }
+  .site-header-logo {
+    width: 170px;
+  }
+}
+
+/*
+ * Motion, after Anthropic's header logo: 633ms (19 frames at 30fps) on
+ * cubic-bezier(0.77, 0, 0.175, 1). Letters slide the whole way and fade over
+ * one half: in over the second half when opening, out over the first when
+ * closing, so they never pile up on AIM.
+ */
+.aim-logo {
+  --logo-dur: 633ms;
+  --logo-half: 317ms;
+  --logo-ease: cubic-bezier(0.77, 0, 0.175, 1);
+  display: block;
+}
+
+.aim-logo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.aim-logo-cross {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: rotate(0deg);
+  transition: transform var(--logo-dur) var(--logo-ease);
+}
+
+.aim-logo.is-open .aim-logo-cross {
+  transform: rotate(180deg);
+}
+
+.aim-logo-word path {
+  transform: translateX(var(--dx));
+  opacity: 0;
+  transition:
+    transform var(--logo-dur) var(--logo-ease),
+    opacity var(--logo-half) var(--logo-ease) 0s;
+}
+
+.aim-logo.is-open .aim-logo-word path {
+  transform: translateX(0);
+  opacity: 1;
+  transition:
+    transform var(--logo-dur) var(--logo-ease),
+    opacity var(--logo-half) var(--logo-ease) var(--logo-half);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aim-logo-cross,
+  .aim-logo-word path {
+    transition-duration: 1ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* The page is otherwise blank: give it length so scrolling (and the logo motion) can happen. */
+.scroll-length {
+  height: 240svh;
+}
