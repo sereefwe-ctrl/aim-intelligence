@@ -38,9 +38,9 @@ const geistMono = localFont({
   display: "swap",
 });
 
-// Nothing You Could Do: the handwritten "trusted by" note.
+// Homemade Apple: the handwritten "trusted by" note.
 const hand = localFont({
-  src: "../node_modules/@fontsource/nothing-you-could-do/files/nothing-you-could-do-latin-400-normal.woff2",
+  src: "../node_modules/@fontsource/homemade-apple/files/homemade-apple-latin-400-normal.woff2",
   weight: "400",
   variable: "--font-hand",
   display: "swap",

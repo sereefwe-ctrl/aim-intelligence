@@ -22,7 +22,7 @@ const TRAIL_COLORS = [
 /** Cursor: the AIM cross. Keep BAR_PX in step with `--bar` in globals.css. */
 const BAR_PX = 3;
 const CURSOR_HALF = 24.5; // half of the 49px cursor box in globals.css
-const KICK_MS = 90;
+const KICK_MS = 70;
 const INTERACTIVE =
   'a, button, [role="button"], input, select, textarea, label, summary';
 
@@ -175,7 +175,7 @@ export function GrainField() {
           vx: (-dx / dist) * 0.3 + (Math.random() - 0.5) * 0.4,
           vy: 0.15 + Math.random() * 0.45,
           size: Math.random() < 0.2 + speed * 0.45 ? 8 : 4,
-          life: 600 + Math.random() * 550,
+          life: 420 + Math.random() * 380,
           color: pick(TRAIL_COLORS),
         });
       }
@@ -194,7 +194,7 @@ export function GrainField() {
           vx: Math.cos(a) * sp,
           vy: Math.sin(a) * sp,
           size: 8,
-          life: 700 + Math.random() * 350,
+          life: 480 + Math.random() * 240,
           color: TRAIL_COLORS[i % TRAIL_COLORS.length],
         });
       }
@@ -278,8 +278,8 @@ export function GrainField() {
       }
 
       cursor.style.transform = `translate(${crispCenter(px) - CURSOR_HALF}px, ${crispCenter(py) - CURSOR_HALF}px)`;
-      gx += (px - gx) * 0.2;
-      gy += (py - gy) * 0.2;
+      gx += (px - gx) * 0.32;
+      gy += (py - gy) * 0.32;
       glow.style.setProperty("--mx", `${gx}px`);
       glow.style.setProperty("--my", `${gy}px`);
 

@@ -6,7 +6,7 @@ import { BACKERS } from "@/lib/backers";
  * connect them. On wider screens it breaks into its three parts: who we are,
  * what we build, and what for. "safe" and "under control." switch to the serif italic and are
  * circled in marker; the circles draw in after the header logo's intro
- * (0.7s wait + 0.63s motion). Below it, the backers line: each name led by its
+ * (0.4s wait, then about 1s of unfurling). Below it, the backers line: each name led by its
  * mark in a square badge, all centred on one row.
  */
 export function Hero() {
@@ -20,11 +20,11 @@ export function Hero() {
         <span className="hero-muted">dedicated to building</span> security
         infrastructure <span className="hero-muted">to keep</span>
         <br className="hero-break" /> Artificial Superintelligence{" "}
-        <MarkerCircle seed={7} delay={2050} duration={680}>
+        <MarkerCircle seed={7} delay={1250} duration={420}>
           <em className="hero-accent">safe</em>
         </MarkerCircle>{" "}
         and{" "}
-        <MarkerCircle seed={23} delay={2700} duration={820}>
+        <MarkerCircle seed={23} delay={1620} duration={520}>
           <em className="hero-accent">under control.</em>
         </MarkerCircle>
       </h1>

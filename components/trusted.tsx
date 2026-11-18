@@ -1,3 +1,4 @@
+import { ARROW } from "@/lib/arrow";
 import { TRUSTED_ROWS } from "@/lib/trusted";
 
 /** Logo height (px at the desktop size) for an aspect ratio: wide wordmarks a
@@ -17,17 +18,34 @@ export function Trusted() {
     <section className="trusted" aria-labelledby="trusted-title">
       <div className="trusted-note" aria-hidden="true">
         <span className="trusted-hand">trusted by</span>
-        <svg className="trusted-arrow" viewBox="0 0 64 92" fill="none">
-          <path
-            className="trusted-arrow-line"
-            pathLength={1}
-            d="M6 5c9 1.5 20.5 6.8 28.4 16.6C43.6 33 47 48.5 46.2 63.7c-.3 5.6-1 11.2-2 16.4"
-          />
-          <path
-            className="trusted-arrow-head"
-            pathLength={1}
-            d="M33.5 70.5c3.6 3.9 6.9 7.6 10.3 11.4 3.7-4.4 7.6-8.3 11.8-11.6"
-          />
+        <svg className="trusted-arrow" viewBox="0 0 120 120">
+          <defs>
+            {ARROW.map((s, i) => (
+              <mask
+                key={i}
+                id={`trusted-arrow-${i}`}
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="120"
+                height="120"
+              >
+                <path
+                  className={`trusted-arrow-pen trusted-arrow-pen-${i}`}
+                  d={s.centre}
+                  pathLength={1}
+                />
+              </mask>
+            ))}
+          </defs>
+          {ARROW.map((s, i) => (
+            <path
+              key={i}
+              className="trusted-arrow-ink"
+              d={s.fill}
+              mask={`url(#trusted-arrow-${i})`}
+            />
+          ))}
         </svg>
       </div>
       <h2 id="trusted-title" className="sr-only">

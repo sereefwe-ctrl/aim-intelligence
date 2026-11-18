@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { AimLogo } from "@/components/aim-logo";
 
 /** Pause before the first expand, so the page opens on "✛ AIM". */
-const INTRO_DELAY_MS = 700;
+const INTRO_DELAY_MS = 400;
 
 /** Top navigation. The pages don't exist yet, so these point at section anchors. */
 const NAV = [
