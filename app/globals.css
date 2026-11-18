@@ -207,23 +207,24 @@ body::after {
   z-index: 1;
   display: flex;
   align-items: center;
-  padding: 28px max(24px, env(safe-area-inset-right, 0px)) 28px
-    max(24px, env(safe-area-inset-left, 0px));
+  padding: 40px max(36px, env(safe-area-inset-right, 0px)) 40px
+    max(36px, env(safe-area-inset-left, 0px));
   color: #f2f0ea;
 }
 
 .site-header-logo {
   display: block;
-  width: clamp(300px, 28vw, 420px);
+  width: clamp(440px, 40vw, 640px);
   color: inherit;
 }
 
 @media (max-width: 639px) {
   .site-header {
-    padding-block: 20px;
+    padding: 24px max(20px, env(safe-area-inset-right, 0px)) 24px
+      max(20px, env(safe-area-inset-left, 0px));
   }
   .site-header-logo {
-    width: 230px;
+    width: 300px;
   }
 }
 
