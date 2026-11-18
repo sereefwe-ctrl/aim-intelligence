@@ -7,12 +7,23 @@ import { AimLogo } from "@/components/aim-logo";
 /** Pause before the first expand, so the page opens on "✛ AIM". */
 const INTRO_DELAY_MS = 700;
 
+/** Top navigation. The pages don't exist yet, so these point at section anchors. */
+const NAV = [
+  { label: "About", href: "#about" },
+  { label: "Research", href: "#research" },
+  { label: "Product", href: "#product" },
+  { label: "Careers", href: "#careers" },
+  { label: "News", href: "#news" },
+];
+
 /**
  * Sticky header with the motion logo: full at the top of the page, "✛ AIM"
  * once you scroll down, full again back at the top. Phones keep "✛ AIM".
+ * Navigation sits on the right; on phones it folds into a Menu button.
  */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const phone = window.matchMedia("(max-width: 639px)");
@@ -25,12 +36,23 @@ export function SiteHeader() {
       sync();
     }, INTRO_DELAY_MS);
 
+    const closeMenu = () => {
+      if (!phone.matches) setMenuOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+
     window.addEventListener("scroll", sync, { passive: true });
     phone.addEventListener("change", sync);
+    phone.addEventListener("change", closeMenu);
+    window.addEventListener("keydown", onKey);
     return () => {
       window.clearTimeout(intro);
       window.removeEventListener("scroll", sync);
       phone.removeEventListener("change", sync);
+      phone.removeEventListener("change", closeMenu);
+      window.removeEventListener("keydown", onKey);
     };
   }, []);
 
@@ -43,6 +65,33 @@ export function SiteHeader() {
       >
         <AimLogo open={open} />
       </Link>
+
+      <button
+        type="button"
+        className="site-nav-toggle"
+        aria-expanded={menuOpen}
+        aria-controls="site-nav"
+        onClick={() => setMenuOpen((v) => !v)}
+      >
+        {menuOpen ? "Close" : "Menu"}
+      </button>
+
+      <nav
+        id="site-nav"
+        className="site-nav"
+        data-open={menuOpen || undefined}
+        aria-label="Main"
+      >
+        <ul>
+          {NAV.map((item) => (
+            <li key={item.href}>
+              <a href={item.href} onClick={() => setMenuOpen(false)}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }

@@ -8,7 +8,8 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   Static fallback grain is `body::after` in `app/globals.css`, hidden via `:root[data-grain="live"]`.
 - Header: `components/site-header.tsx` renders the motion logo (`components/aim-logo.tsx`, paths in
   `lib/aim-logo.ts`, motion in the `.aim-logo` rules of `app/globals.css`). Full logo at the top of the
-  page, "✛ AIM" once scrolled; phones keep "✛ AIM". The page has extra length (`.scroll-length`) so it scrolls.
+  page, "✛ AIM" once scrolled; phones keep "✛ AIM". Nav links (About, Research, Product, Careers, News)
+  sit on the right and fold into a Menu button on phones; they point at `#anchors` until pages exist. The page has extra length (`.scroll-length`) so it scrolls.
 - Headline: `components/hero.tsx`, styled by the `.hero` rules in `app/globals.css` (Belleza via
   `next/font/local` from `@fontsource/belleza`; white key phrases, 42% white connecting words; marker
   circles from `components/marker-circle.tsx`).
