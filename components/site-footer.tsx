@@ -27,11 +27,18 @@ const COLUMNS = [
 const PAGES: Record<string, string> = { News: "/news" };
 
 /**
- * Certifications and programmes, stacked beside the columns and centred on one
- * axis; widths are set so the three carry the same visual weight (one-colour
+ * Certifications and programmes, stacked in the middle of the space beside the
+ * columns and centred on one axis; widths are set so the three carry the same visual weight (one-colour
  * SVGs in public/certs).
  */
 const CERTS = [
+  {
+    name: "NVIDIA Inception Program member",
+    src: "/certs/nvidia-inception.svg",
+    w: 621,
+    h: 208,
+    width: 128,
+  },
   {
     name: "ISO/IEC 27001 certified",
     src: "/certs/iso-27001.svg",
@@ -45,13 +52,6 @@ const CERTS = [
     w: 1227,
     h: 399,
     width: 140,
-  },
-  {
-    name: "NVIDIA Inception Program member",
-    src: "/certs/nvidia-inception.svg",
-    w: 621,
-    h: 208,
-    width: 128,
   },
 ];
 

@@ -973,28 +973,32 @@ body::after {
 /* link columns on the left, certification badges stacked on the right */
 .footer-body {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 64px clamp(32px, 4vw, 64px);
+  align-items: center;
+  gap: 64px 0;
   margin-top: clamp(44px, 4.4vw, 68px);
 }
 
 /* link columns: serif headings over sans links */
 .footer-columns {
-  flex: 1 1 auto;
+  flex: 0 1 1080px;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 52px clamp(20px, 3vw, 48px);
   max-width: 1080px;
 }
 
+/*
+ * In the middle of the space right of the columns. The last column's box runs
+ * on past its text, so the stack's box reaches back over that margin to centre
+ * in the gap the eye sees.
+ */
 .footer-certs {
-  flex: none;
+  flex: 1 0 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  margin: 0;
+  margin: 0 0 0 -48px;
   padding: 0;
   list-style: none;
 }
@@ -1080,10 +1084,19 @@ body::after {
   fill: rgb(var(--ink) / 0.12);
 }
 
-@media (max-width: 899px) {
+/* too narrow to sit beside the columns: the badges go underneath */
+@media (max-width: 1179px) {
   .footer-body {
     flex-direction: column;
+    align-items: flex-start;
   }
+  .footer-certs {
+    flex: none;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 899px) {
   .footer-columns {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
