@@ -37,10 +37,15 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
 - News page (`app/news/page.tsx`, `components/news.tsx`): its own route, not on the home page. Large
   light "News" title, then the articles newest first: date, source lead-in + headline, arrow; each row
   links out to the article (after attentionx.org). Dates are the articles' own (arXiv: first version).
+- Data / Research / Careers columns (`components/highlights.tsx`, `.highlight` rules): between the
+  marquee and the footer, after pantheon.inc. Hairline, small uppercase label, title, one-line
+  description, link with arrow (links level at the bottom; destinations are placeholders).
 - Footer (`components/site-footer.tsx`), after exa.ai: closing headline in
   upright Instrument Serif ("The question is no longer “What can we do with AI?” It is “Who keeps it
   under control?”", second sentence on its own line), a hairline across the screen, link columns (serif
-  headings, sans links; links are placeholders), then the © line and "From Seoul 🇰🇷 and San Francisco 🇺🇸
+  headings, sans links; links are placeholders) with three badges stacked on the right (ISO 27001,
+  OWASP GenAI Security Project, NVIDIA Inception: one-colour SVGs in `public/certs/` drawn as CSS masks),
+  then the © line and "From Seoul 🇰🇷 and San Francisco 🇺🇸
   to the world 🌍". Last, the whole logo edge to edge across the screen, flush with the page bottom
   (after attentionx.org).
 - The scrollbar is hidden.

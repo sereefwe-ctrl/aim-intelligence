@@ -26,6 +26,31 @@ const COLUMNS = [
 
 const PAGES: Record<string, string> = { News: "/news" };
 
+/** Certifications and programmes, stacked beside the columns (one-colour SVGs in public/certs). */
+const CERTS = [
+  {
+    name: "ISO/IEC 27001 certified",
+    src: "/certs/iso-27001.svg",
+    w: 400,
+    h: 400,
+    width: 96,
+  },
+  {
+    name: "OWASP GenAI Security Project",
+    src: "/certs/owasp-genai.svg",
+    w: 1227,
+    h: 399,
+    width: 188,
+  },
+  {
+    name: "NVIDIA Inception Program member",
+    src: "/certs/nvidia-inception.svg",
+    w: 621,
+    h: 208,
+    width: 168,
+  },
+];
+
 const href = (label: string) =>
   PAGES[label] ??
   "/#" +
@@ -36,7 +61,8 @@ const href = (label: string) =>
 
 /**
  * Footer, after exa.ai: a closing headline in the serif, a rule across the
- * screen, link columns (serif headings over sans links), then the copyright
+ * screen, link columns (serif headings over sans links) with the certification
+ * badges stacked on the right, then the copyright
  * and sign-off line. Last, the full AIM INTELLIGENCE logo running edge to
  * edge, flush with the bottom of the page (after attentionx.org).
  */
@@ -50,31 +76,52 @@ export function SiteFooter() {
 
       <hr className="footer-rule" />
 
-      <nav className="footer-columns" aria-label="Footer">
-        {COLUMNS.map((col) => (
-          <div key={col.title} className="footer-col">
-            <h2 className="footer-heading">{col.title}</h2>
+      <div className="footer-body">
+        <nav className="footer-columns" aria-label="Footer">
+          {COLUMNS.map((col) => (
+            <div key={col.title} className="footer-col">
+              <h2 className="footer-heading">{col.title}</h2>
+              <ul>
+                {col.links.map((label) => (
+                  <li key={label}>
+                    <Link href={href(label)}>{label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <div className="footer-col footer-cta">
+            <h2 className="footer-heading">Work with AIM</h2>
             <ul>
-              {col.links.map((label) => (
-                <li key={label}>
-                  <Link href={href(label)}>{label}</Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/#contact">Book a demo</Link>
+              </li>
+              <li>
+                <Link href="/#contact">Contact sales</Link>
+              </li>
             </ul>
           </div>
-        ))}
-        <div className="footer-col footer-cta">
-          <h2 className="footer-heading">Work with AIM</h2>
-          <ul>
-            <li>
-              <Link href="/#contact">Book a demo</Link>
+        </nav>
+
+        <ul className="footer-certs" aria-label="Certifications and programs">
+          {CERTS.map((c) => (
+            <li key={c.src}>
+              <span
+                role="img"
+                aria-label={c.name}
+                className="footer-cert"
+                style={
+                  {
+                    "--logo": `url(${c.src})`,
+                    width: `${c.width}px`,
+                    aspectRatio: `${c.w} / ${c.h}`,
+                  } as React.CSSProperties
+                }
+              />
             </li>
-            <li>
-              <Link href="/#contact">Contact sales</Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
+          ))}
+        </ul>
+      </div>
 
       <div className="footer-legal">
         <p>© 2026 AIM Intelligence. All rights reserved.</p>
