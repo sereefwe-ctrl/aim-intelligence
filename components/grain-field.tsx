@@ -18,7 +18,13 @@ const TRAIL_COLORS = [
   "#f2a97e",
   "#a9b8d6",
 ];
-const CURSOR_SIZE = 18;
+
+/** Cursor: the AIM cross. Keep BAR_PX in step with `--bar` in globals.css. */
+const BAR_PX = 3;
+const CURSOR_HALF = 24.5; // half of the 49px cursor box in globals.css
+const KICK_MS = 90;
+const INTERACTIVE =
+  'a, button, [role="button"], input, select, textarea, label, summary';
 
 type Square = {
   x: number;
@@ -34,6 +40,18 @@ type Square = {
 const snap = (v: number) => Math.round(v / GRID) * GRID;
 const pick = <T,>(list: readonly T[]) =>
   list[(Math.random() * list.length) | 0];
+
+/**
+ * Place the cross centre so its bars land on whole device pixels:
+ * an odd bar width centres on a pixel, an even one on a pixel edge.
+ */
+function crispCenter(v: number) {
+  const ratio = window.devicePixelRatio || 1;
+  const dev = v * ratio;
+  return (BAR_PX * ratio) % 2 === 1
+    ? (Math.floor(dev) + 0.5) / ratio
+    : Math.round(dev) / ratio;
+}
 
 /** Gaussian-ish grayscale noise (mean 128, sd ~52), one value per device pixel. */
 function makeNoiseTile(size: number) {
@@ -59,12 +77,14 @@ export function GrainField() {
   const grainRef = useRef<HTMLCanvasElement>(null);
   const trailRef = useRef<HTMLCanvasElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
+  const reticleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const glow = glowRef.current!;
     const grain = grainRef.current!;
     const trail = trailRef.current!;
     const cursor = cursorRef.current!;
+    const reticle = reticleRef.current!;
     const gctx = grain.getContext("2d");
     const tctx = trail.getContext("2d");
     if (!gctx || !tctx) return;
@@ -112,15 +132,23 @@ export function GrainField() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Pointer state, eased toward the real position each frame.
+    // Pointer position. The cross sits exactly on it; the glow eases after it.
     let px = -999;
     let py = -999;
-    let cx = -999;
-    let cy = -999;
+    let gx = -999;
+    let gy = -999;
     let seen = false;
     let lastX: number | null = null;
     let lastY: number | null = null;
     const squares: Square[] = [];
+
+    // Each press turns the cross 45° into an "x"; each release turns it on to "+".
+    let turn = 0;
+    let kickTimer = 0;
+    const setTurn = (deg: number) => {
+      turn = deg;
+      reticle.style.transform = `rotate(${turn}deg)`;
+    };
 
     const add = (s: Omit<Square, "age">) => {
       if (squares.length >= MAX_SQUARES) squares.shift();
@@ -177,30 +205,60 @@ export function GrainField() {
       py = e.clientY;
       if (!seen) {
         seen = true;
-        cx = px;
-        cy = py;
+        gx = px;
+        gy = py;
         glow.classList.add("is-on");
         if (e.pointerType === "mouse") cursor.classList.add("is-on");
       }
       if (!reduced) spawnTrail();
     };
+
+    const onOver = (e: PointerEvent) => {
+      const target = e.target as Element | null;
+      cursor.classList.toggle("is-hover", !!target?.closest?.(INTERACTIVE));
+    };
+
     const onDown = (e: PointerEvent) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
       px = e.clientX;
       py = e.clientY;
+      window.clearTimeout(kickTimer);
+      cursor.classList.remove("is-kick");
       cursor.classList.add("is-down");
-      if (!reduced) burst(px, py);
+      if (!reduced) {
+        setTurn(turn + 45);
+        burst(px, py);
+      }
     };
-    const onUp = () => cursor.classList.remove("is-down");
+
+    const onUp = (e: PointerEvent) => {
+      if (!cursor.classList.contains("is-down")) return;
+      cursor.classList.remove("is-down");
+      if (e.type === "pointercancel" || reduced) {
+        if (turn % 90 !== 0) setTurn(turn - 45);
+        return;
+      }
+      // Recoil: bars kick outward, then spring back to rest.
+      setTurn(turn + 45);
+      cursor.classList.add("is-kick");
+      kickTimer = window.setTimeout(
+        () => cursor.classList.remove("is-kick"),
+        KICK_MS,
+      );
+    };
+
     const onLeave = () => {
       seen = false;
       lastX = lastY = null;
       glow.classList.remove("is-on");
-      cursor.classList.remove("is-on");
+      cursor.classList.remove("is-on", "is-hover");
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerover", onOver, { passive: true });
     window.addEventListener("pointerdown", onDown, { passive: true });
     window.addEventListener("pointerup", onUp, { passive: true });
+    window.addEventListener("pointercancel", onUp, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
 
     let raf = 0;
@@ -219,11 +277,11 @@ export function GrainField() {
         }
       }
 
-      cx += (px - cx) * 0.3;
-      cy += (py - cy) * 0.3;
-      cursor.style.transform = `translate(${cx - CURSOR_SIZE / 2}px, ${cy - CURSOR_SIZE / 2}px)`;
-      glow.style.setProperty("--mx", `${cx}px`);
-      glow.style.setProperty("--my", `${cy}px`);
+      cursor.style.transform = `translate(${crispCenter(px) - CURSOR_HALF}px, ${crispCenter(py) - CURSOR_HALF}px)`;
+      gx += (px - gx) * 0.2;
+      gy += (py - gy) * 0.2;
+      glow.style.setProperty("--mx", `${gx}px`);
+      glow.style.setProperty("--my", `${gy}px`);
 
       tctx.clearRect(0, 0, trail.width, trail.height);
       for (let i = squares.length - 1; i >= 0; i--) {
@@ -252,10 +310,13 @@ export function GrainField() {
 
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(kickTimer);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerover", onOver);
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       document.documentElement.removeEventListener("pointerleave", onLeave);
       delete root.dataset.grain;
       delete root.dataset.cursor;
@@ -268,7 +329,12 @@ export function GrainField() {
       <canvas ref={grainRef} className="grain-live" aria-hidden />
       <canvas ref={trailRef} className="grain-trail" aria-hidden />
       <div ref={cursorRef} className="grain-cursor" aria-hidden>
-        <span />
+        <div ref={reticleRef} className="grain-reticle">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
       </div>
     </>
   );

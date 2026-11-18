@@ -83,36 +83,118 @@ body::after {
   mix-blend-mode: exclusion;
 }
 
-/* Custom cursor: a rounded square that inverts what it sits over. */
+/*
+ * Custom cursor: the AIM cross (four bars around an open centre), inverting
+ * what it sits over. Press: bars converge and it turns 45°. Release: bars
+ * kick out and spring back as it completes a quarter turn.
+ */
 :root[data-cursor="custom"],
 :root[data-cursor="custom"] * {
   cursor: none !important;
 }
 
 .grain-cursor {
+  /*
+   * An odd-sized box, so its corner sits on a whole pixel while the bars
+   * centre on the pointer (positioned by the translate set in JS).
+   */
   top: 0;
   left: 0;
   z-index: 4;
-  width: 18px;
-  height: 18px;
+  width: 49px;
+  height: 49px;
   opacity: 0;
   mix-blend-mode: exclusion;
   transition: opacity 0.2s ease;
   will-change: transform;
+
+  /*
+   * Bar geometry. At rest every edge lands on a whole pixel: the cross centre
+   * is the middle of pixel (24, 24) in this box, i.e. 24.5px.
+   */
+  --bar: 3px; /* keep in step with BAR_PX in grain-field.tsx */
+  --len: 10px;
+  --rest-gap: 3.5px;
+  --gap: var(--rest-gap);
 }
 
 .grain-cursor.is-on {
   opacity: 1;
 }
 
-.grain-cursor span {
-  position: absolute;
-  inset: 0;
-  border-radius: 5px;
-  background: #fff;
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+.grain-cursor.is-hover {
+  --gap: 7.5px;
 }
 
-.grain-cursor.is-down span {
-  transform: scale(0.6);
+.grain-cursor.is-down {
+  --gap: 1px;
+}
+
+.grain-cursor.is-kick {
+  --gap: 10px;
+}
+
+/* Positioned on whole pixels; it turns about the cross centre, 0.5px in. */
+.grain-reticle {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 0;
+  height: 0;
+  transform-origin: 0.5px 0.5px;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.grain-cursor.is-down .grain-reticle {
+  transition-duration: 0.18s;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/*
+ * One bar per side, laid out at its rest spot above the centre, turned to its
+ * side, and moved along its own axis by the difference from the rest gap.
+ */
+.grain-reticle span {
+  position: absolute;
+  top: calc(0.5px - var(--rest-gap) - var(--len));
+  left: calc(0.5px - var(--bar) / 2);
+  width: var(--bar);
+  height: var(--len);
+  background: #fff;
+  transform-origin: calc(var(--bar) / 2) calc(var(--len) + var(--rest-gap));
+  transform: rotate(var(--side)) translateY(calc(var(--rest-gap) - var(--gap)));
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.grain-reticle span:nth-child(1) {
+  --side: 0deg;
+}
+
+.grain-reticle span:nth-child(2) {
+  --side: 90deg;
+}
+
+.grain-reticle span:nth-child(3) {
+  --side: 180deg;
+}
+
+.grain-reticle span:nth-child(4) {
+  --side: 270deg;
+}
+
+.grain-cursor.is-down .grain-reticle span {
+  transition-duration: 0.12s;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.grain-cursor.is-kick .grain-reticle span {
+  transition-duration: 0.08s;
+  transition-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-reticle,
+  .grain-reticle span {
+    transition: none !important;
+  }
 }

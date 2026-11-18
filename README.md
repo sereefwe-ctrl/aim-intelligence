@@ -16,7 +16,10 @@ npm run dev
 - **Pointer glow**: a faint light that follows the pointer, which the grain catches.
 - **Pixel trail**: grid-snapped squares shed by the pointer; faster movement sheds more.
   A click or tap releases a ring of squares.
-- **Custom cursor**: a rounded square with exclusion blending (mouse/trackpad only).
+- **Cross cursor**: the AIM cross (four bars, open centre) with exclusion blending,
+  mouse/trackpad only. Press: the bars converge and it turns 45° into an ×. Release:
+  the bars kick out and spring back as it completes a quarter turn. Over links and
+  buttons the bars spread.
 
 With reduced motion on, the grain holds still and the trail is off. Without JavaScript,
 a static grain texture (`public/textures/grain.webp`) is shown instead.
