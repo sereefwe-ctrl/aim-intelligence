@@ -1,10 +1,28 @@
 @import "tailwindcss";
 
+/*
+ * Theme tokens. Dark (warm charcoal) is the default; the toggle in the
+ * header sets data-theme="light" for warm paper. --ink is an RGB triplet so
+ * text can use it at any opacity: rgb(var(--ink) / 0.5).
+ */
 :root {
-  /* Warm charcoal base. */
   --background: #141413;
+  --ink: 242 240 234;
+  --ink-strong: 247 245 240;
+  --glow: rgb(255 255 255 / 0.045);
+  --marker: #22b07d;
   --grain-opacity: 0.1;
   color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --background: #f3f1ec;
+  --ink: 26 26 24;
+  --ink-strong: 20 20 19;
+  --glow: rgb(255 255 255 / 0.55);
+  --marker: #12935f;
+  --grain-opacity: 0.085;
+  color-scheme: light;
 }
 
 html,
@@ -23,6 +41,7 @@ html::-webkit-scrollbar {
 }
 
 body {
+  transition: background-color 0.45s ease;
   font-family:
     var(--font-sans),
     "Inter",
@@ -76,7 +95,7 @@ body::after {
   transition: opacity 0.5s ease;
   background: radial-gradient(
     460px circle at var(--mx, 50%) var(--my, 50%),
-    rgb(255 255 255 / 0.045),
+    var(--glow),
     transparent 65%
   );
 }
@@ -230,7 +249,7 @@ body::after {
   align-items: center;
   padding: 40px max(36px, env(safe-area-inset-right, 0px)) 40px
     max(36px, env(safe-area-inset-left, 0px));
-  color: #f2f0ea;
+  color: rgb(var(--ink));
   /* solid, so text scrolling up passes behind the logo and nav */
   background: var(--background);
 }
@@ -302,7 +321,7 @@ body::after {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgb(242 240 234 / 0.78);
+  color: rgb(var(--ink) / 0.78);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -310,12 +329,12 @@ body::after {
 .site-nav a:hover,
 .site-nav a:focus-visible,
 .site-nav-toggle:hover {
-  color: #f2f0ea;
+  color: rgb(var(--ink));
 }
 
 .site-nav a:focus-visible,
 .site-nav-toggle:focus-visible {
-  outline: 1px solid #f2f0ea;
+  outline: 1px solid rgb(var(--ink));
   outline-offset: 4px;
 }
 
@@ -325,6 +344,53 @@ body::after {
   padding: 0 4px;
   background: none;
   border: 0;
+}
+
+/* Right end of the header: theme switch (and the Menu button when folded). */
+.site-header-tools {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex: none;
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-right: -8px; /* optical: the disc's edge lines up with the gutter */
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: rgb(var(--ink) / 0.78);
+  transition: color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: rgb(var(--ink));
+}
+
+.theme-toggle:focus-visible {
+  outline: 1px solid rgb(var(--ink));
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.theme-toggle svg[data-theme-icon="light"] {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle svg {
+    transition: none;
+  }
 }
 
 /* Below 820px five links no longer sit comfortably beside the logo. */
@@ -342,8 +408,8 @@ body::after {
     right: 0;
     padding: 8px max(36px, env(safe-area-inset-right, 0px)) 28px
       max(36px, env(safe-area-inset-left, 0px));
-    background: #141413;
-    border-bottom: 1px solid rgb(242 240 234 / 0.12);
+    background: var(--background);
+    border-bottom: 1px solid rgb(var(--ink) / 0.12);
   }
 
   .site-nav[data-open] {
@@ -360,7 +426,7 @@ body::after {
     display: block;
     padding: 12px 0;
     font-size: 18px;
-    color: #f2f0ea;
+    color: rgb(var(--ink));
   }
 }
 
@@ -456,12 +522,12 @@ body::after {
   font-size: clamp(2.1rem, 3.9vw, 4.25rem);
   line-height: 1.15;
   letter-spacing: -0.04em;
-  color: #f7f5f0;
+  color: rgb(var(--ink-strong));
   text-wrap: balance;
 }
 
 .hero-muted {
-  color: rgb(247 245 240 / 0.48);
+  color: rgb(var(--ink-strong) / 0.48);
 }
 
 /* The headline's three parts sit on their own lines once there is room. */
@@ -537,7 +603,7 @@ body::after {
   font-size: clamp(14px, 1.05vw, 16px);
   line-height: 1.3;
   letter-spacing: -0.005em;
-  color: rgb(242 240 234 / 0.52);
+  color: rgb(var(--ink) / 0.52);
 }
 
 .backer-group,
@@ -562,7 +628,7 @@ body::after {
   width: 1.4em;
   height: 1.4em;
   border-radius: 0.3em;
-  background: rgb(242 240 234 / 0.66);
+  background: rgb(var(--ink) / 0.66);
   color: var(--background);
 }
 
@@ -571,9 +637,9 @@ body::after {
 }
 
 .backer-name {
-  color: rgb(242 240 234 / 0.9);
+  color: rgb(var(--ink) / 0.9);
 }
 
 .backers-punct {
-  color: rgb(242 240 234 / 0.52);
+  color: rgb(var(--ink) / 0.52);
 }

@@ -14,8 +14,6 @@ import { useEffect, useId, useRef, useState } from "react";
  * clear the lines above and below.
  */
 
-const COLOR = "#22b07d";
-
 type Pt = [number, number];
 type Box = { x0: number; x1: number; y0: number; y1: number };
 /** Glyph ink boxes and the baseline, px, relative to the wrapper. */
@@ -368,7 +366,11 @@ export function MarkerCircle({
               strokeDashoffset={geo.length + 1}
             />
           </mask>
-          <path d={geo.fill} fill={COLOR} mask={`url(#${maskId})`} />
+          <path
+            d={geo.fill}
+            style={{ fill: "var(--marker)" }}
+            mask={`url(#${maskId})`}
+          />
         </svg>
       )}
     </span>

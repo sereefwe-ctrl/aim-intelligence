@@ -44,6 +44,15 @@ export function Hero() {
                   }}
                 >
                   <path d={b.d} fill="currentColor" />
+                  {"parts" in b &&
+                    b.parts.map((part) => (
+                      <path
+                        key={part.transform}
+                        d={part.d}
+                        transform={part.transform}
+                        fill="currentColor"
+                      />
+                    ))}
                 </svg>
               </span>
               <span className="backer-name">

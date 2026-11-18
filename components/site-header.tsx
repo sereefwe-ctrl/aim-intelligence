@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AimLogo } from "@/components/aim-logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 /** Pause before the first expand, so the page opens on "✛ AIM". */
 const INTRO_DELAY_MS = 700;
@@ -11,7 +12,8 @@ const INTRO_DELAY_MS = 700;
 const NAV = [
   { label: "About", href: "#about" },
   { label: "Research", href: "#research" },
-  { label: "Product", href: "#product" },
+  { label: "Products", href: "#products" },
+  { label: "Solutions", href: "#solutions" },
   { label: "Careers", href: "#careers" },
   { label: "News", href: "#news" },
 ];
@@ -68,16 +70,6 @@ export function SiteHeader() {
         <AimLogo open={open} />
       </Link>
 
-      <button
-        type="button"
-        className="site-nav-toggle"
-        aria-expanded={menuOpen}
-        aria-controls="site-nav"
-        onClick={() => setMenuOpen((v) => !v)}
-      >
-        {menuOpen ? "Close" : "Menu"}
-      </button>
-
       <nav
         id="site-nav"
         className="site-nav"
@@ -94,6 +86,19 @@ export function SiteHeader() {
           ))}
         </ul>
       </nav>
+
+      <div className="site-header-tools">
+        <ThemeToggle />
+        <button
+          type="button"
+          className="site-nav-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="site-nav"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          {menuOpen ? "Close" : "Menu"}
+        </button>
+      </div>
     </header>
   );
 }
