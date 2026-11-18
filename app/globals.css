@@ -327,3 +327,46 @@ body::after {
     font-size: clamp(1.85rem, 8.8vw, 2.6rem);
   }
 }
+
+/* Hand-drawn marker loops around words in the headline. */
+.hero-circled {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-loop {
+  position: absolute;
+  /* room around the word, so the loop circles it loosely */
+  top: -0.26em;
+  left: -0.34em;
+  width: calc(100% + 0.7em);
+  height: calc(100% + 0.56em);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hero-loop path {
+  fill: none;
+  stroke: #22b07d;
+  stroke-width: 0.055em;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-loop-draw 0.75s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes hero-loop-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-loop path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
