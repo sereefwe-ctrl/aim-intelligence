@@ -11,7 +11,7 @@ export function Hero() {
           is an applied research lab dedicated to building
         </span>{" "}
         security infrastructure <span className="hero-muted">to keep</span>{" "}
-        artificial superintelligence safe and under control.
+        Artificial Superintelligence safe and under control.
       </h1>
     </section>
   );

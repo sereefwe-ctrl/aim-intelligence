@@ -13,7 +13,7 @@ const dmSans = localFont({
 export const metadata: Metadata = {
   title: "AIM Intelligence",
   description:
-    "AIM Intelligence is an applied research lab dedicated to building security infrastructure to keep artificial superintelligence safe and under control.",
+    "AIM Intelligence is an applied research lab dedicated to building security infrastructure to keep Artificial Superintelligence safe and under control.",
 };
 
 export default function RootLayout({
