@@ -992,8 +992,8 @@ body::after {
   flex: none;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(24px, 2.4vw, 34px);
+  align-items: center;
+  gap: 26px;
   margin: 0;
   padding: 0;
   list-style: none;
