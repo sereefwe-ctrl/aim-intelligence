@@ -19,32 +19,8 @@ export function Trusted() {
       <div className="trusted-note" aria-hidden="true">
         <span className="trusted-hand">trusted by</span>
         <svg className="trusted-arrow" viewBox="0 0 120 120">
-          <defs>
-            {ARROW.map((s, i) => (
-              <mask
-                key={i}
-                id={`trusted-arrow-${i}`}
-                maskUnits="userSpaceOnUse"
-                x="0"
-                y="0"
-                width="120"
-                height="120"
-              >
-                <path
-                  className={`trusted-arrow-pen trusted-arrow-pen-${i}`}
-                  d={s.centre}
-                  pathLength={1}
-                />
-              </mask>
-            ))}
-          </defs>
           {ARROW.map((s, i) => (
-            <path
-              key={i}
-              className="trusted-arrow-ink"
-              d={s.fill}
-              mask={`url(#trusted-arrow-${i})`}
-            />
+            <path key={i} className="trusted-arrow-ink" d={s.fill} />
           ))}
         </svg>
       </div>
