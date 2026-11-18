@@ -730,7 +730,7 @@ body::after {
   font-family: var(--font-hand), "Nothing You Could Do", cursive;
   font-size: clamp(26px, 2.3vw, 34px);
   line-height: 1.25;
-  color: rgb(var(--ink) / 0.86);
+  color: rgb(var(--ink) / 0.66);
   transform: rotate(-6deg);
   transform-origin: left bottom;
   white-space: nowrap;
@@ -747,7 +747,7 @@ body::after {
 }
 
 .trusted-arrow-ink {
-  fill: rgb(var(--ink) / 0.82);
+  fill: rgb(var(--ink) / 0.62);
 }
 
 /* the pen path, wide enough to uncover the whole stroke */
