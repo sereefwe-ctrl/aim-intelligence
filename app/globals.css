@@ -722,7 +722,7 @@ body::after {
   position: relative;
   width: max-content;
   margin-left: clamp(36px, 13vw, 220px);
-  height: clamp(112px, 9vw, 138px);
+  height: clamp(84px, 6.6vw, 100px);
 }
 
 .trusted-hand {
@@ -738,8 +738,9 @@ body::after {
 
 .trusted-arrow {
   position: absolute;
-  left: calc(100% - 0.6em);
-  top: 0.95em;
+  /* starts just past the end of "by", level with its letters */
+  left: calc(100% + 0.2em);
+  top: -0.25em;
   width: clamp(58px, 4.8vw, 76px);
   height: auto;
   overflow: visible;
