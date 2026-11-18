@@ -37,7 +37,7 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
 - News page (`app/news/page.tsx`, `components/news.tsx`): its own route, not on the home page. Large
   light "News" title, then the articles newest first: date, source lead-in + headline, arrow; each row
   links out to the article (after attentionx.org). Dates are the articles' own (arXiv: first version).
-- Data / Research / Careers columns (`components/highlights.tsx`, `.highlight` rules): between the
+- Benchmark / Research / Careers columns (`components/highlights.tsx`, `.highlight` rules): between the
   marquee and the footer, after pantheon.inc. Hairline, small uppercase label, title, one-line
   description, link with arrow (links level at the bottom; destinations are placeholders).
 - Footer (`components/site-footer.tsx`), after exa.ai: closing headline in

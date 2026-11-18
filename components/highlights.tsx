@@ -5,11 +5,11 @@
  */
 const ITEMS = [
   {
-    label: "Data",
+    label: "Benchmark",
     title: "NOLLI and Global PIQA",
     text: "Our English–Korean puzzle benchmark and commonsense reasoning across 100+ languages.",
-    cta: "Explore our data",
-    href: "/#data",
+    cta: "Explore our benchmarks",
+    href: "/#benchmarks",
   },
   {
     label: "Research",
@@ -29,7 +29,10 @@ const ITEMS = [
 
 export function Highlights() {
   return (
-    <section className="highlights" aria-label="Data, research and careers">
+    <section
+      className="highlights"
+      aria-label="Benchmarks, research and careers"
+    >
       {ITEMS.map((item) => (
         <article key={item.label} className="highlight">
           <p className="highlight-label">{item.label}</p>
