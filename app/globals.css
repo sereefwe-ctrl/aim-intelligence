@@ -5,10 +5,10 @@
  * text can use it at any opacity: rgb(var(--ink) / 0.5).
  */
 :root {
-  --background: #f6efdc; /* vanilla */
+  --background: #f5f0e4; /* soft vanilla */
   --ink: 26 26 24;
   --ink-strong: 20 20 19;
-  --glow: rgb(255 250 232 / 0.6);
+  --glow: rgb(255 252 240 / 0.58);
   --marker: #12935f;
   --grain-opacity: 0.085;
   /* ambient light: cool upper left, warm lower right, a faint gold core */
