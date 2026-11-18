@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 /*
- * Colour tokens: warm paper with near-black ink. --ink is an RGB triplet so
+ * Colour tokens: vanilla paper with near-black ink. --ink is an RGB triplet so
  * text can use it at any opacity: rgb(var(--ink) / 0.5).
  */
 :root {
-  --background: #f3f1ec;
+  --background: #f6efdc; /* vanilla */
   --ink: 26 26 24;
   --ink-strong: 20 20 19;
-  --glow: rgb(255 255 255 / 0.55);
+  --glow: rgb(255 250 232 / 0.6);
   --marker: #12935f;
   --grain-opacity: 0.085;
   /* ambient light: cool upper left, warm lower right, a faint gold core */
   --ambient-a: rgb(118 148 226 / 0.3);
   --ambient-b: rgb(244 156 112 / 0.28);
-  --ambient-c: rgb(255 204 96 / 0.22);
+  --ambient-c: rgb(255 204 96 / 0.26);
   --ambient-strength: 0.7;
   color-scheme: light;
 }

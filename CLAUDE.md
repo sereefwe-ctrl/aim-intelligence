@@ -2,7 +2,7 @@
 
 Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from GitHub.
 
-- Palette: light only (warm paper `#f3f1ec`, near-black ink). Colours are tokens on `:root` in
+- Palette: light only (vanilla paper `#f6efdc`, near-black ink). Colours are tokens on `:root` in
   `app/globals.css` (`--background`, `--ink`/`--ink-strong` as RGB triplets, `--glow`, `--marker`,
   `--ambient-a/b/c`); use them, not literal colours.
 - Background: ambient light (`.ambient` in the grain field: three slow-drifting radial glows, colours
