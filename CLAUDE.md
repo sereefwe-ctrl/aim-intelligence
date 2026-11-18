@@ -28,16 +28,17 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   drawn beneath the text, and the line holding it gets just enough margin to clear its neighbours.
 - Backers line: Samsung, Hyundai, LG Electronics, NAVER, and Mirae Asset Capital. `lib/backers.ts` (Simple Icons; Mirae Asset swoosh from Wikimedia Commons), each mark
   in a square badge, all items centred on one flex row. `scale` sets each mark's size in its badge.
-- Latest news link under the headline and backers line (`.hero-latest`): outlined mono LATEST tag + underlined
-  headline linking out (NVIDIA blog), after pantheon.inc.
 - Trusted by (`components/trusted.tsx`, `lib/trusted.ts`): handwritten note (Nothing You Could Do,
   `--font-hand`) with a drawn arrow, then two logo rows drifting in opposite directions (60s linear,
   track = logos x4 sliding -50%, edge fades, pause on hover), after airfoil.studio. Logos are one-
   colour SVGs in `public/trusted/` drawn via CSS masks; height balanced by aspect ratio, `scale`
   trims heavy marks. PSG is a typeset placeholder until the right PSG logo is confirmed.
+- News (`components/news.tsx`, `#news`): after the marquee, newest first; date, source lead-in +
+  headline, arrow; each row links out to the article (after attentionx.org). Dates are the articles' own.
 - Footer (`components/site-footer.tsx`): "From Seoul 🇰🇷 and San Francisco 🇺🇸 to the world 🌍",
   link columns (sans headings, tracked mono links, after juicebox.ai; links are placeholders), the
-  © line, and the whole logo across the page width (after attentionx.org).
+  © line, and the whole logo edge to edge across the screen, flush with the page bottom (after
+  attentionx.org).
 - The scrollbar is hidden.
 - Respect `prefers-reduced-motion` for any new animation.
 - Before committing: `npm run lint && npm run typecheck && npm run build`, and `npm run format`.

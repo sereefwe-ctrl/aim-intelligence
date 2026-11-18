@@ -711,7 +711,7 @@ body::after {
 .trusted {
   position: relative;
   z-index: 1;
-  padding-top: clamp(40px, 5vw, 72px);
+  padding-top: clamp(56px, 6vw, 96px);
 }
 
 /* the note sits over the left third, its arrow dropping toward the first row */
@@ -861,94 +861,6 @@ body::after {
   }
 }
 
-/* ---- Latest news link under the headline (components/hero.tsx) ---- */
-
-.hero-latest {
-  margin: clamp(8px, 1.5vw, 24px) 0 0;
-  max-width: 100%;
-}
-
-.hero-latest a {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  max-width: 100%;
-  color: rgb(var(--ink) / 0.72);
-  text-decoration: none;
-}
-
-.latest-tag {
-  flex: none;
-  padding: 6px 12px 5px;
-  border: 1px solid rgb(var(--ink) / 0.4);
-  font-family:
-    var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  line-height: 1;
-  text-transform: uppercase;
-  color: rgb(var(--ink) / 0.7);
-  transition:
-    border-color 0.25s ease,
-    color 0.25s ease;
-}
-
-.latest-text {
-  min-width: 0;
-  font-size: clamp(15px, 1.15vw, 17px);
-  line-height: 1.4;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 5px;
-  text-decoration-color: rgb(var(--ink) / 0.35);
-  transition:
-    color 0.25s ease,
-    text-decoration-color 0.25s ease;
-}
-
-.latest-arrow {
-  flex: none;
-  font-size: 17px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hero-latest a:hover .latest-text,
-.hero-latest a:focus-visible .latest-text {
-  color: rgb(var(--ink-strong));
-  text-decoration-color: rgb(var(--ink-strong) / 0.7);
-}
-
-.hero-latest a:hover .latest-tag {
-  border-color: rgb(var(--ink) / 0.7);
-  color: rgb(var(--ink));
-}
-
-.hero-latest a:hover .latest-arrow {
-  transform: translateX(4px);
-}
-
-.hero-latest a:focus-visible {
-  outline: 1px solid rgb(var(--ink));
-  outline-offset: 6px;
-}
-
-@media (max-width: 639px) {
-  .hero-latest a {
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .latest-tag {
-    margin-top: 1px;
-  }
-  .latest-arrow {
-    display: none;
-  }
-  .latest-text {
-    font-size: 14px;
-  }
-}
-
 /* ---- Footer (components/site-footer.tsx) ---- */
 
 .site-footer {
@@ -1038,18 +950,21 @@ body::after {
   margin: 0;
 }
 
-/* the full logo across the page width, whole */
+/*
+ * The full logo, edge to edge across the screen and flush with the bottom of
+ * the page, like attentionx.org's: whole, never cropped. The svg's viewBox
+ * ends at the letters' foot, so nothing hangs below them.
+ */
 .footer-mark {
-  margin-top: clamp(28px, 3.5vw, 48px);
-  padding-bottom: clamp(24px, 3vw, 44px);
+  margin: clamp(40px, 5vw, 72px) calc(var(--gutter) * -1) 0;
+  line-height: 0;
 }
 
 .footer-mark svg {
   display: block;
   width: 100%;
   height: auto;
-  overflow: visible;
-  fill: rgb(var(--ink) / 0.1);
+  fill: rgb(var(--ink) / 0.12);
 }
 
 @media (max-width: 899px) {
@@ -1067,5 +982,127 @@ body::after {
   }
   .footer-legal {
     flex-direction: column;
+  }
+}
+
+/* ---- News (components/news.tsx), after attentionx.org ---- */
+
+.news {
+  position: relative;
+  z-index: 1;
+  scroll-margin-top: 120px;
+  padding: clamp(80px, 9vw, 140px) max(36px, env(safe-area-inset-right, 0px)) 0
+    max(36px, env(safe-area-inset-left, 0px));
+}
+
+.news-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgb(var(--ink) / 0.14);
+  font-family:
+    var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--ink) / 0.7);
+}
+
+/* the brand's cross, as a small tick before the label */
+.news-eyebrow::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat,
+    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat;
+}
+
+.news-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news-list li {
+  border-bottom: 1px solid rgb(var(--ink) / 0.14);
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px clamp(20px, 3vw, 48px);
+  padding: clamp(22px, 2.4vw, 32px) 0;
+  color: rgb(var(--ink) / 0.62);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.news-date {
+  font-family:
+    var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--ink) / 0.5);
+  white-space: nowrap;
+}
+
+.news-title {
+  max-width: 54ch;
+  font-size: clamp(18px, 1.55vw, 23px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.news-title strong {
+  font-weight: 500;
+  color: rgb(var(--ink-strong));
+}
+
+.news-arrow {
+  align-self: center;
+  font-size: 20px;
+  color: rgb(var(--ink) / 0.5);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.25s ease;
+}
+
+.news-item:hover,
+.news-item:focus-visible {
+  color: rgb(var(--ink-strong));
+}
+
+.news-item:hover .news-arrow,
+.news-item:focus-visible .news-arrow {
+  color: rgb(var(--ink-strong));
+  transform: translateX(6px);
+}
+
+.news-item:focus-visible {
+  outline: 1px solid rgb(var(--ink));
+  outline-offset: 4px;
+}
+
+@media (max-width: 639px) {
+  .news {
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+  .news-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .news-date {
+    grid-column: 1 / -1;
+  }
+  .news-title {
+    font-size: 17px;
   }
 }

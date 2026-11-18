@@ -30,7 +30,8 @@ const slug = (s: string) =>
 /**
  * Footer: a one-line sign-off, link columns (sans headings over tracked mono
  * links, after juicebox.ai), the copyright line, and the full AIM INTELLIGENCE
- * logo spanning the page width (after attentionx.org).
+ * logo running edge to edge across the screen, flush with the bottom of the
+ * page (after attentionx.org).
  */
 export function SiteFooter() {
   return (
