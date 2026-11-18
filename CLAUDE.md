@@ -12,8 +12,8 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   hidden via `:root[data-grain="live"]`.
 - Type system (all `next/font/local` from @fontsource, set up in `app/layout.tsx`):
   - Inter Tight (`--font-sans`): the voice. Headline at weight 300 (350 on phones), body text.
-  - Instrument Serif Italic (`--font-serif`): emphasis only (`.hero-accent`), at 1.14em to match
-    the sans x-height.
+  - Instrument Serif (`--font-serif`): italic for emphasis (`.hero-accent`, at 1.14em to match the
+    sans x-height); upright only in the footer headline and column headings.
   - Geist Mono (`--font-mono`): small tracked uppercase labels (navigation).
   - The logo is vector paths, not type.
 - Header: `components/site-header.tsx` renders the motion logo (`components/aim-logo.tsx`, paths in
@@ -35,10 +35,12 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   trims heavy marks. PSG is a typeset placeholder until the right PSG logo is confirmed.
 - News (`components/news.tsx`, `#news`): after the marquee, newest first; date, source lead-in +
   headline, arrow; each row links out to the article (after attentionx.org). Dates are the articles' own.
-- Footer (`components/site-footer.tsx`): "From Seoul 🇰🇷 and San Francisco 🇺🇸 to the world 🌍",
-  link columns (sans headings, tracked mono links, after juicebox.ai; links are placeholders), the
-  © line, and the whole logo edge to edge across the screen, flush with the page bottom (after
-  attentionx.org).
+- Footer (`components/site-footer.tsx`), after exa.ai: "AIM Intelligence" label, closing headline in
+  upright Instrument Serif ("The question is no longer “What can we do with AI?” It is “Who keeps it
+  under control?”", second sentence on its own line), a hairline across the screen, link columns (serif
+  headings, sans links; links are placeholders), then the © line and "From Seoul 🇰🇷 and San Francisco 🇺🇸
+  to the world 🌍". Last, the whole logo edge to edge across the screen, flush with the page bottom
+  (after attentionx.org).
 - The scrollbar is hidden.
 - Respect `prefers-reduced-motion` for any new animation.
 - Before committing: `npm run lint && npm run typecheck && npm run build`, and `npm run format`.

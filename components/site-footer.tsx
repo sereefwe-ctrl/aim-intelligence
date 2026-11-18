@@ -28,19 +28,21 @@ const slug = (s: string) =>
     .replace(/^-|-$/g, "");
 
 /**
- * Footer: a one-line sign-off, link columns (sans headings over tracked mono
- * links, after juicebox.ai), the copyright line, and the full AIM INTELLIGENCE
- * logo running edge to edge across the screen, flush with the bottom of the
- * page (after attentionx.org).
+ * Footer, after exa.ai: the company name, a closing headline in the serif, a
+ * rule across the screen, link columns (serif headings over sans links), then
+ * the copyright and sign-off line. Last, the full AIM INTELLIGENCE logo running
+ * edge to edge, flush with the bottom of the page (after attentionx.org).
  */
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <p className="footer-origin">
-        From Seoul <span className="emoji">🇰🇷</span> and San Francisco{" "}
-        <span className="emoji">🇺🇸</span> to the world{" "}
-        <span className="emoji">🌍</span>
+      <p className="footer-name">AIM Intelligence</p>
+      <p className="footer-headline">
+        The question is no longer “What can we do with AI?”
+        <br /> It is “Who keeps it under control?”
       </p>
+
+      <hr className="footer-rule" />
 
       <nav className="footer-columns" aria-label="Footer">
         {COLUMNS.map((col) => (
@@ -70,6 +72,11 @@ export function SiteFooter() {
 
       <div className="footer-legal">
         <p>© 2026 AIM Intelligence. All rights reserved.</p>
+        <p>
+          From Seoul <span className="emoji">🇰🇷</span> and San Francisco{" "}
+          <span className="emoji">🇺🇸</span> to the world{" "}
+          <span className="emoji">🌍</span>
+        </p>
       </div>
 
       <div className="footer-mark" aria-hidden="true">
