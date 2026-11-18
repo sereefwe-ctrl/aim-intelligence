@@ -3,46 +3,54 @@ import { BACKERS } from "@/lib/backers";
 
 /**
  * Headline: white for the name and the key phrases, muted for the words that
- * connect them, with "safe" and "under control." circled in marker. The
- * circles draw in after the header logo's intro (0.7s wait + 0.63s motion).
- * Below it, the backers line: each name led by its mark in a square badge.
+ * connect them. On wider screens it breaks into its three parts: who we are,
+ * what we build, and what for. "safe" and "under control." switch to the serif italic and are
+ * circled in marker; the circles draw in after the header logo's intro
+ * (0.7s wait + 0.63s motion). Below it, the backers line: each name led by its
+ * mark in a square badge, all centred on one row.
  */
 export function Hero() {
+  const last = BACKERS.length - 1;
   return (
     <section className="hero" aria-labelledby="hero-title">
       <h1 id="hero-title" className="hero-title">
         AIM Intelligence{" "}
-        <span className="hero-muted">
-          is an applied research lab dedicated to building
-        </span>{" "}
-        security infrastructure <span className="hero-muted">to keep</span>{" "}
-        Artificial Superintelligence{" "}
+        <span className="hero-muted">is an applied research lab</span>
+        <br className="hero-break" />{" "}
+        <span className="hero-muted">dedicated to building</span> security
+        infrastructure <span className="hero-muted">to keep</span>
+        <br className="hero-break" /> Artificial Superintelligence{" "}
         <MarkerCircle seed={7} delay={1400} duration={620}>
-          safe
+          <em className="hero-accent">safe</em>
         </MarkerCircle>{" "}
         and{" "}
         <MarkerCircle seed={23} delay={2080} duration={780}>
-          under control.
+          <em className="hero-accent">under control.</em>
         </MarkerCircle>
       </h1>
 
       <p className="backers">
-        Backed by{" "}
+        <span className="backers-label">Backed by</span>
         {BACKERS.map((b, i) => (
-          <span key={b.name}>
+          <span key={b.name} className="backer-group">
+            {i === last && <span className="backers-label">and</span>}
             <span className="backer">
               <span className="backer-mark" aria-hidden="true">
-                <svg viewBox={b.viewBox}>
+                <svg
+                  viewBox={b.viewBox}
+                  style={{
+                    width: `${b.scale * 100}%`,
+                    height: `${b.scale * 100}%`,
+                  }}
+                >
                   <path d={b.d} fill="currentColor" />
                 </svg>
               </span>
-              <span className="backer-name">{b.name}</span>
+              <span className="backer-name">
+                {b.name}
+                <span className="backers-punct">{i === last ? "." : ","}</span>
+              </span>
             </span>
-            {i < BACKERS.length - 2
-              ? ", "
-              : i === BACKERS.length - 2
-                ? ", and "
-                : "."}
           </span>
         ))}
       </p>

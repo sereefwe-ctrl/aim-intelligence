@@ -19,7 +19,7 @@ const NAV = [
 /**
  * Sticky header with the motion logo: full at the top of the page, "✛ AIM"
  * once you scroll down, full again back at the top. Phones keep "✛ AIM".
- * Navigation sits on the right; on phones it folds into a Menu button.
+ * Navigation spreads across the right; below 820px it folds into a Menu button.
  */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -27,6 +27,8 @@ export function SiteHeader() {
 
   useEffect(() => {
     const phone = window.matchMedia("(max-width: 639px)");
+    // below this width the links fold into the Menu button
+    const compact = window.matchMedia("(max-width: 819px)");
     let ready = false;
     const sync = () => {
       if (ready) setOpen(window.scrollY <= 4 && !phone.matches);
@@ -37,7 +39,7 @@ export function SiteHeader() {
     }, INTRO_DELAY_MS);
 
     const closeMenu = () => {
-      if (!phone.matches) setMenuOpen(false);
+      if (!compact.matches) setMenuOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -45,13 +47,13 @@ export function SiteHeader() {
 
     window.addEventListener("scroll", sync, { passive: true });
     phone.addEventListener("change", sync);
-    phone.addEventListener("change", closeMenu);
+    compact.addEventListener("change", closeMenu);
     window.addEventListener("keydown", onKey);
     return () => {
       window.clearTimeout(intro);
       window.removeEventListener("scroll", sync);
       phone.removeEventListener("change", sync);
-      phone.removeEventListener("change", closeMenu);
+      compact.removeEventListener("change", closeMenu);
       window.removeEventListener("keydown", onKey);
     };
   }, []);
