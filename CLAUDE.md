@@ -33,9 +33,6 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
     users covered by guardrails, 100,000+ live agents protected. Final values are in the markup; on
     scroll-in each counts up (digits written via refs, no re-render) while its rule draws in. Hover
     dims the others and fills the rule with `--marker`. The `+` is the serif italic in marker green.
-  - Client wall: 15 logos traced to one-colour SVGs in `public/clients/` (list in `lib/clients.ts`),
-    drawn with CSS masks in the ink colour, sized by aspect ratio (`--grow` = ratio^0.55) so all
-    weigh the same; hairline grid, 5/3/2 columns. They rise in via `animation-timeline: view()`.
 - The scrollbar is hidden.
 - Respect `prefers-reduced-motion` for any new animation.
 - Before committing: `npm run lint && npm run typecheck && npm run build`, and `npm run format`.

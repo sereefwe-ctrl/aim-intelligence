@@ -707,7 +707,7 @@ body::after {
   border: 0;
 }
 
-/* ---- Proof: numbers and client wall (components/proof.tsx, stats.tsx) ---- */
+/* ---- Proof: numbers (components/proof.tsx, stats.tsx) ---- */
 
 .proof {
   position: relative;
@@ -753,7 +753,7 @@ body::after {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0 clamp(20px, 3vw, 48px);
-  margin: 0 0 clamp(40px, 5vw, 72px);
+  margin: 0;
 }
 
 .stat {
@@ -848,80 +848,10 @@ body::after {
   text-wrap: pretty;
 }
 
-/* Client wall: a grid of hairline cells. */
-.clients {
-  --cols: 5;
-  --logo-unit: clamp(30px, 3.4vw, 50px);
-  display: grid;
-  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid rgb(var(--ink) / 0.12);
-  border-left: 1px solid rgb(var(--ink) / 0.12);
-}
-
-.client {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 2.1 / 1;
-  border-right: 1px solid rgb(var(--ink) / 0.12);
-  border-bottom: 1px solid rgb(var(--ink) / 0.12);
-  transition: background-color 0.4s ease;
-}
-
-.client:hover {
-  background: rgb(var(--ink) / 0.035);
-}
-
-/* one ink for every logo; sized so wide and square marks weigh the same */
-.client-logo {
-  display: block;
-  width: calc(var(--logo-unit) * var(--grow));
-  max-width: 78%;
-  aspect-ratio: var(--ratio);
-  max-height: calc(var(--logo-unit) * 0.9);
-  background: rgb(var(--ink) / 0.6);
-  -webkit-mask: var(--logo) center / contain no-repeat;
-  mask: var(--logo) center / contain no-repeat;
-  transition:
-    background-color 0.35s ease,
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.client:hover .client-logo {
-  background: rgb(var(--ink-strong));
-  transform: scale(1.04);
-}
-
-/* logos rise in as the wall scrolls into view, where supported */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .client-logo {
-      animation: client-in linear both;
-      animation-timeline: view();
-      /* done once fully on screen, so the last row finishes at the page end */
-      animation-range: entry 0% entry 100%;
-    }
-  }
-}
-
-@keyframes client-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-}
-
 @media (max-width: 899px) {
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 44px;
-  }
-  .clients {
-    --cols: 3;
-    --logo-unit: clamp(26px, 5.4vw, 40px);
   }
 }
 
@@ -935,9 +865,5 @@ body::after {
   }
   .stats {
     column-gap: 20px;
-  }
-  .clients {
-    --cols: 2;
-    --logo-unit: clamp(26px, 8vw, 36px);
   }
 }
