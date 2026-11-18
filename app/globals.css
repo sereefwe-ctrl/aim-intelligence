@@ -886,8 +886,7 @@ body::after {
 /* sign-off line */
 .footer-origin {
   margin: 0 0 clamp(56px, 7vw, 104px);
-  padding-top: clamp(56px, 7vw, 104px);
-  border-top: 1px solid rgb(var(--ink) / 0.12);
+  padding-top: clamp(40px, 5vw, 72px);
   text-align: center;
   text-wrap: balance;
   font-size: clamp(18px, 1.6vw, 24px);
