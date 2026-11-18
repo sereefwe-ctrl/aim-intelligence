@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { introDone } from "@/lib/intro";
 
 /**
  * A hand-drawn marker loop around a word or phrase.
@@ -309,18 +310,30 @@ export function MarkerCircle({
   useEffect(() => {
     const path = reveal.current;
     if (!geo || !path || played.current) return;
-    played.current = true;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      played.current = true;
       path.style.strokeDashoffset = "0";
       return;
     }
-    path.animate([{ strokeDashoffset: geo.length }, { strokeDashoffset: 0 }], {
-      duration,
-      delay,
-      // a pen: quick to get going, long easy finish
-      easing: "cubic-bezier(0.42, 0.08, 0.22, 1)",
-      fill: "forwards",
+    // `delay` counts from the moment the loading screen starts to lift
+    let cancelled = false;
+    introDone.then(() => {
+      if (cancelled || played.current) return;
+      played.current = true;
+      path.animate(
+        [{ strokeDashoffset: geo.length }, { strokeDashoffset: 0 }],
+        {
+          duration,
+          delay,
+          // a pen: quick to get going, long easy finish
+          easing: "cubic-bezier(0.42, 0.08, 0.22, 1)",
+          fill: "forwards",
+        },
+      );
     });
+    return () => {
+      cancelled = true;
+    };
   }, [geo, delay, duration]);
 
   return (

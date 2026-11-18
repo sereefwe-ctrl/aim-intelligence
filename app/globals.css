@@ -16,6 +16,10 @@
   --ambient-b: rgb(244 156 112 / 0.28);
   --ambient-c: rgb(255 204 96 / 0.26);
   --ambient-strength: 0.7;
+  /* loading screen: near-black film, the logo in the paper colour */
+  --loader-bg: #060606;
+  --loader-ink: #f5f0e4;
+  --loader-grain: 0.11;
   color-scheme: light;
 }
 
@@ -69,6 +73,92 @@ body::after {
 
 :root[data-grain="live"] body::after {
   display: none;
+}
+
+/* ---- Loading screen (components/intro-loader.tsx) ---- */
+
+/*
+ * Black film with live grain over the whole page while the logo unfurls, then
+ * a fade. Above the header and the page grain (2), level with the pointer
+ * trail (3, later in the page, so it still shows) and below the cursor (4).
+ */
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  background: var(--loader-bg);
+  color: var(--loader-ink);
+  transition: opacity 650ms cubic-bezier(0.65, 0, 0.35, 1);
+  /* if the script never runs, the screen still clears */
+  animation: intro-loader-failsafe 0.6s ease 5s forwards;
+}
+
+.intro-loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--loader-grain);
+  background: url("/textures/grain.webp") 0 0 / 160px 160px;
+  /* the film flickers: the tile jumps between offsets, ~14 times a second */
+  animation: intro-loader-grain 0.43s steps(1) infinite;
+}
+
+.intro-loader[data-phase="leaving"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+ * The logo, centred. Collapsed, "✛ AIM" is only the left 28.4% of the logo's
+ * width, so the logo starts nudged right to centre it and glides back to
+ * centre as INTELLIGENCE unfurls.
+ */
+.intro-loader-logo {
+  position: relative;
+  width: min(72vw, 600px);
+  transform: translateX(35.8%);
+  transition: transform 1200ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.intro-loader:not([data-phase="idle"]) .intro-loader-logo {
+  transform: none;
+}
+
+@keyframes intro-loader-grain {
+  0% {
+    background-position: 0 0;
+  }
+  17% {
+    background-position: -53px 31px;
+  }
+  33% {
+    background-position: 71px -97px;
+  }
+  50% {
+    background-position: -118px -42px;
+  }
+  67% {
+    background-position: 26px 88px;
+  }
+  83% {
+    background-position: 97px 13px;
+  }
+}
+
+@keyframes intro-loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-loader {
+    display: none;
+  }
 }
 
 /* ---- Interactive grain (components/grain-field.tsx) ---- */

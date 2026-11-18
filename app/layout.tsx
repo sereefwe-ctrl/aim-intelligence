@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { IntroLoader } from "@/components/intro-loader";
 import "./globals.css";
 
 /*
@@ -72,7 +73,10 @@ export default function RootLayout({
       lang="en"
       className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable} ${hand.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <IntroLoader />
+        {children}
+      </body>
     </html>
   );
 }

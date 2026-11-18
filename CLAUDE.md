@@ -23,9 +23,14 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   home-page `#anchors` until their pages exist. The current page's link is `aria-current`.
   The header is clear at the top of the page; once scrolled (`data-scrolled`) a solid band
   (`.site-header::before`, with a 36px fade below it) hides text passing beneath.
+- Loading screen (`components/intro-loader.tsx`, `.intro-loader` rules), in the root layout so it plays on
+  full page loads only: near-black film (`--loader-bg`) with flickering grain, the motion logo centred in
+  `--loader-ink`. "✛ AIM" (nudged right to sit centred) unfurls to the full logo; once the motion ends and
+  the page has loaded (capped at 4.2s) it fades out. `lib/intro.ts` (`introDone`) tells the page when it
+  lifts: the marker circles' delays count from then. Skipped for reduced motion; a CSS failsafe clears it at 5s.
 - Headline: `components/hero.tsx` (`.hero` rules). White key phrases, 48% connecting words. From
   700px up, `.hero-break` splits it into its three parts. "safe" and "under control." are circled by
-  `components/marker-circle.tsx`: the loop is fitted to the glyphs' real ink (canvas measurement),
+  `components/marker-circle.tsx` as the loading screen lifts: the loop is fitted to the glyphs' real ink (canvas measurement),
   drawn beneath the text, and the line holding it gets just enough margin to clear its neighbours.
 - Backers line: Samsung, Hyundai, LG Electronics, NAVER, and Mirae Asset Capital. `lib/backers.ts` (Simple Icons; Mirae Asset swoosh from Wikimedia Commons), each mark
   in a square badge, all items centred on one flex row. `scale` sets each mark's size in its badge.
