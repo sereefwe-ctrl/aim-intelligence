@@ -6,7 +6,8 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   after the nav. Colours are tokens on `:root` / `:root[data-theme="light"]` in `app/globals.css`
   (`--background`, `--ink`/`--ink-strong` as RGB triplets, `--glow`, `--marker`); use them, not literal
   colours. The choice is saved in localStorage and applied before paint by `THEME_SCRIPT` in the layout.
-- Background: with interactive grain from `components/grain-field.tsx` (live flicker,
+- Background: ambient light (`.ambient` in the grain field: three slow-drifting radial glows, colours
+  `--ambient-a/b/c` per theme, after attentionx.org) plus interactive grain from `components/grain-field.tsx` (live flicker,
   pointer glow, pixel trail, cross cursor). Cursor bar geometry is pixel-snapped: keep `--bar` in
   `app/globals.css` and `BAR_PX` in the component in step. Static fallback grain is `body::after`,
   hidden via `:root[data-grain="live"]`.
@@ -20,12 +21,13 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   `lib/aim-logo.ts`, motion in the `.aim-logo` rules). Full logo at the top of the page, "✛ AIM" once
   scrolled; phones keep "✛ AIM". Nav links (About, Research, Products, Solutions, Careers, News) spread across
   `--nav-span` on the right and fold into a Menu button below 820px; they point at `#anchors` until
-  pages exist. The header is solid with a fade below, so content scrolls behind it.
+  pages exist. The header is clear at the top of the page; once scrolled (`data-scrolled`) a frosted glass veil
+  (`.site-header::before`, soft lower edge) keeps text passing beneath from competing with it.
 - Headline: `components/hero.tsx` (`.hero` rules). White key phrases, 48% connecting words. From
   700px up, `.hero-break` splits it into its three parts. "safe" and "under control." are circled by
   `components/marker-circle.tsx`: the loop is fitted to the glyphs' real ink (canvas measurement),
   drawn beneath the text, and the line holding it gets just enough margin to clear its neighbours.
-- Backers line: `lib/backers.ts` (Simple Icons; Mirae Asset swoosh from Wikimedia Commons), each mark
+- Backers line: Samsung, Hyundai, LG Electronics, NAVER, and Mirae Asset Capital. `lib/backers.ts` (Simple Icons; Mirae Asset swoosh from Wikimedia Commons), each mark
   in a square badge, all items centred on one flex row. `scale` sets each mark's size in its badge.
 - The page has extra length (`.scroll-length`) so it scrolls; the scrollbar is hidden.
 - Respect `prefers-reduced-motion` for any new animation.

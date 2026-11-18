@@ -26,6 +26,7 @@ const NAV = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const phone = window.matchMedia("(max-width: 639px)");
@@ -33,6 +34,8 @@ export function SiteHeader() {
     const compact = window.matchMedia("(max-width: 819px)");
     let ready = false;
     const sync = () => {
+      // the glass veil only matters once content can pass beneath it
+      setScrolled(window.scrollY > 4);
       if (ready) setOpen(window.scrollY <= 4 && !phone.matches);
     };
     const intro = window.setTimeout(() => {
@@ -61,7 +64,7 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-scrolled={scrolled || undefined}>
       <Link
         href="/"
         aria-label="AIM Intelligence, home"

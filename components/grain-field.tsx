@@ -325,6 +325,12 @@ export function GrainField() {
 
   return (
     <>
+      {/* slow-drifting coloured light behind everything (colours per theme) */}
+      <div className="ambient" aria-hidden>
+        <span className="ambient-a" />
+        <span className="ambient-b" />
+        <span className="ambient-c" />
+      </div>
       <div ref={glowRef} className="grain-glow" aria-hidden />
       <canvas ref={grainRef} className="grain-live" aria-hidden />
       <canvas ref={trailRef} className="grain-trail" aria-hidden />
