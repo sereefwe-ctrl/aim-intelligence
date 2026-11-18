@@ -1,3 +1,9 @@
+import { GrainField } from "@/components/grain-field";
+
 export default function Home() {
-  return <main />;
+  return (
+    <main>
+      <GrainField />
+    </main>
+  );
 }

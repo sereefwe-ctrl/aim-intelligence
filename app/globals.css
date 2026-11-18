@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm charcoal base, matching the reference's dark theme. */
+  /* Warm charcoal base. */
   --background: #141413;
   --grain-opacity: 0.1;
   color-scheme: dark;
@@ -21,8 +21,8 @@ body {
 }
 
 /*
- * Static film grain: a 320px grayscale noise tile shown at 160px
- * (2x for sharp grain on retina screens), laid over the whole page.
+ * Static grain fallback (no JavaScript): a 320px grayscale noise tile shown
+ * at 160px. Hidden once the live grain canvas takes over.
  */
 body::after {
   content: "";
@@ -32,4 +32,87 @@ body::after {
   pointer-events: none;
   opacity: var(--grain-opacity);
   background: url("/textures/grain.webp") 0 0 / 160px 160px;
+}
+
+:root[data-grain="live"] body::after {
+  display: none;
+}
+
+/* ---- Interactive grain (components/grain-field.tsx) ---- */
+
+.grain-glow,
+.grain-live,
+.grain-trail,
+.grain-cursor {
+  position: fixed;
+  pointer-events: none;
+}
+
+/* Soft light that follows the pointer; the grain catches it. */
+.grain-glow {
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: radial-gradient(
+    460px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(255 255 255 / 0.045),
+    transparent 65%
+  );
+}
+
+.grain-glow.is-on {
+  opacity: 1;
+}
+
+/* Live film grain, redrawn ~14 times a second. */
+.grain-live {
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: var(--grain-opacity);
+}
+
+/* Pixel squares shed by the pointer. */
+.grain-trail {
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: exclusion;
+}
+
+/* Custom cursor: a rounded square that inverts what it sits over. */
+:root[data-cursor="custom"],
+:root[data-cursor="custom"] * {
+  cursor: none !important;
+}
+
+.grain-cursor {
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  mix-blend-mode: exclusion;
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+.grain-cursor.is-on {
+  opacity: 1;
+}
+
+.grain-cursor span {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  background: #fff;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.grain-cursor.is-down span {
+  transform: scale(0.6);
 }
