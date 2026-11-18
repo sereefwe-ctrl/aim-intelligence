@@ -1,7 +1,8 @@
 /**
  * News: newest first. Each row is a link out to the article: date, then the
  * source as a lead-in and the headline, then an arrow (after attentionx.org).
- * Dates are the articles' own publish dates.
+ * Dates are the articles' own publish dates (for arXiv papers, the first
+ * version).
  */
 const NEWS = [
   {
@@ -12,24 +13,24 @@ const NEWS = [
     href: "https://blogs.nvidia.com/blog/korea-secure-agentic-ai/",
   },
   {
-    date: "2026-11-03",
-    source: "VentureSquare",
+    date: "2026-08-05",
+    source: "arXiv",
     title:
-      "AIM Intelligence takes 2nd place overall at global deep tech competition Slingshot 2026",
-    href: "https://www.venturesquare.net/en/1125097/",
-  },
-  {
-    date: "2026-09-03",
-    source: "VentureSquare",
-    title:
-      "A security fence for action-oriented AI assistants: AIM Intelligence joins ‘AI for Everyone’",
-    href: "https://www.venturesquare.net/en/1110625/",
+      "NOLLI: A Difficulty-Calibrated Puzzle Benchmark for Diagnosing the English-Korean Performance Gap",
+    href: "https://arxiv.org/abs/2608.04397",
   },
   {
     date: "2026-04-10",
     source: "The SaaS News",
     title: "AIM Intelligence secures KRW 10B in Series A",
     href: "https://www.thesaasnews.com/news/aim-intelligence-secures-krw-10b-in-series-a/",
+  },
+  {
+    date: "2025-10-28",
+    source: "arXiv",
+    title:
+      "Global PIQA: Evaluating Commonsense Reasoning Across 100+ Languages and Cultures",
+    href: "https://arxiv.org/abs/2510.24081",
   },
 ];
 
