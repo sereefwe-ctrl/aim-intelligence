@@ -283,7 +283,47 @@ body::after {
   }
 }
 
-/* The page is otherwise blank: give it length so scrolling (and the logo motion) can happen. */
+/* The page has length below the headline so scrolling (and the logo motion) can happen. */
 .scroll-length {
-  height: 240svh;
+  min-height: 240svh;
+}
+
+/* ---- Headline (components/hero.tsx), after pantheon.inc ---- */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  /* first screen, less the header; the headline sits a little above centre */
+  min-height: calc(100svh - 120px);
+  padding: 0 max(36px, env(safe-area-inset-right, 0px)) 12svh
+    max(36px, env(safe-area-inset-left, 0px));
+}
+
+.hero-title {
+  margin: 0;
+  max-width: 21em;
+  font-family: var(--font-dm-sans), "Geist", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4.4vw, 4.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.hero-muted {
+  color: rgb(255 255 255 / 0.42);
+}
+
+@media (max-width: 639px) {
+  .hero {
+    min-height: calc(100svh - 80px);
+    padding: 0 max(20px, env(safe-area-inset-right, 0px)) 10svh
+      max(20px, env(safe-area-inset-left, 0px));
+  }
+  .hero-title {
+    font-size: clamp(1.85rem, 8.8vw, 2.6rem);
+  }
 }

@@ -1,4 +1,5 @@
 import { GrainField } from "@/components/grain-field";
+import { Hero } from "@/components/hero";
 import { SiteHeader } from "@/components/site-header";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <>
       <SiteHeader />
       <main className="scroll-length">
+        <Hero />
         <GrainField />
       </main>
     </>
