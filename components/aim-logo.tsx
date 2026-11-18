@@ -1,9 +1,9 @@
 import { AIM_LOGO } from "@/lib/aim-logo";
 
 /**
- * The AIM INTELLIGENCE logo. Collapsed it reads "✛ AIM"; open, each letter of
- * INTELLIGENCE slides out from behind the M (fading in over the second half)
- * while the cross turns 180° clockwise. The motion lives in globals.css
+ * The AIM INTELLIGENCE logo. Collapsed it reads "✛ AIM"; open, INTELLIGENCE
+ * unfurls letter by letter from behind the M while the cross turns 180°
+ * clockwise. Each letter carries its index (--i) for the stagger. The motion lives in globals.css
  * (.aim-logo rules); this component only renders the paths.
  */
 export function AimLogo({
@@ -26,12 +26,18 @@ export function AimLogo({
           fill="currentColor"
         />
         <g className="aim-logo-word">
-          {AIM_LOGO.word.map((l) => (
+          {AIM_LOGO.word.map((l, i) => (
             <path
               key={l.d}
               d={l.d}
               fill="currentColor"
-              style={{ "--dx": `${l.dx}px` } as React.CSSProperties}
+              style={
+                {
+                  "--dx": `${l.dx}px`,
+                  "--i": i,
+                  "--n": AIM_LOGO.word.length,
+                } as React.CSSProperties
+              }
             />
           ))}
         </g>

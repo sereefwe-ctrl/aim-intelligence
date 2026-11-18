@@ -463,15 +463,25 @@ body::after {
 }
 
 /*
- * Motion, after Anthropic's header logo: 633ms (19 frames at 30fps) on
- * cubic-bezier(0.77, 0, 0.175, 1). Letters slide the whole way and fade over
- * one half: in over the second half when opening, out over the first when
- * closing, so they never pile up on AIM.
+ * Logo motion. Opening: INTELLIGENCE is drawn out from behind the M like a
+ * ribbon, its far end leading and each letter following a beat later, so the
+ * letters spread apart rather than pile up. Each glides on a long, soft
+ * landing, settling from a slight dip onto the line and fading in once clear
+ * of AIM; the cross turns half a circle slowly and evenly throughout.
+ * Closing (on scroll) is quicker and mirrors it: the letter nearest AIM
+ * tucks in first, and each fades before it reaches the M.
  */
 .aim-logo {
-  --logo-dur: 633ms;
-  --logo-half: 317ms;
-  --logo-ease: cubic-bezier(0.77, 0, 0.175, 1);
+  --open-dur: 1700ms;
+  --open-ease: cubic-bezier(0.16, 1, 0.3, 1); /* glide, long settle */
+  --open-stagger: 48ms;
+  --close-dur: 1000ms;
+  --close-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --close-stagger: 32ms;
+  --turn-open: 1800ms;
+  --turn-close: 1200ms;
+  --turn-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --dip: 50px; /* in logo units: 5% of the cap height */
   display: block;
 }
 
@@ -486,32 +496,37 @@ body::after {
   transform-box: fill-box;
   transform-origin: 50% 50%;
   transform: rotate(0deg);
-  transition: transform var(--logo-dur) var(--logo-ease);
+  transition: transform var(--turn-close) var(--turn-ease);
 }
 
 .aim-logo.is-open .aim-logo-cross {
   transform: rotate(180deg);
+  transition: transform var(--turn-open) var(--turn-ease);
 }
 
 .aim-logo-word path {
-  transform: translateX(var(--dx));
+  --close-delay: calc(var(--i) * var(--close-stagger));
+  transform: translate(var(--dx), var(--dip));
   opacity: 0;
   transition:
-    transform var(--logo-dur) var(--logo-ease),
-    opacity var(--logo-half) var(--logo-ease) 0s;
+    transform var(--close-dur) var(--close-ease) var(--close-delay),
+    opacity 520ms cubic-bezier(0.4, 0, 1, 1) var(--close-delay);
 }
 
 .aim-logo.is-open .aim-logo-word path {
-  transform: translateX(0);
+  --open-delay: calc((var(--n) - 1 - var(--i)) * var(--open-stagger));
+  transform: translate(0, 0);
   opacity: 1;
   transition:
-    transform var(--logo-dur) var(--logo-ease),
-    opacity var(--logo-half) var(--logo-ease) var(--logo-half);
+    transform var(--open-dur) var(--open-ease) var(--open-delay),
+    opacity 900ms cubic-bezier(0.33, 1, 0.68, 1) calc(var(--open-delay) + 260ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .aim-logo-cross,
-  .aim-logo-word path {
+  .aim-logo-word path,
+  .aim-logo.is-open .aim-logo-cross,
+  .aim-logo.is-open .aim-logo-word path {
     transition-duration: 1ms !important;
     transition-delay: 0s !important;
   }

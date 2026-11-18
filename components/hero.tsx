@@ -20,11 +20,11 @@ export function Hero() {
         <span className="hero-muted">dedicated to building</span> security
         infrastructure <span className="hero-muted">to keep</span>
         <br className="hero-break" /> Artificial Superintelligence{" "}
-        <MarkerCircle seed={7} delay={1400} duration={620}>
+        <MarkerCircle seed={7} delay={2050} duration={680}>
           <em className="hero-accent">safe</em>
         </MarkerCircle>{" "}
         and{" "}
-        <MarkerCircle seed={23} delay={2080} duration={780}>
+        <MarkerCircle seed={23} delay={2700} duration={820}>
           <em className="hero-accent">under control.</em>
         </MarkerCircle>
       </h1>
