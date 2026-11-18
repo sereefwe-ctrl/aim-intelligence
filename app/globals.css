@@ -1,32 +1,17 @@
 @import "tailwindcss";
 
 /*
- * Theme tokens. Dark (warm charcoal) is the default; the toggle in the
- * header sets data-theme="light" for warm paper. --ink is an RGB triplet so
+ * Colour tokens: warm paper with near-black ink. --ink is an RGB triplet so
  * text can use it at any opacity: rgb(var(--ink) / 0.5).
  */
 :root {
-  --background: #141413;
-  --ink: 242 240 234;
-  --ink-strong: 247 245 240;
-  --glow: rgb(255 255 255 / 0.045);
-  --marker: #22b07d;
-  --grain-opacity: 0.1;
-  /* ambient light: cool upper left, warm lower right, a faint gold core */
-  --ambient-a: rgb(124 150 222 / 0.34);
-  --ambient-b: rgb(228 150 108 / 0.26);
-  --ambient-c: rgb(255 198 92 / 0.12);
-  --ambient-strength: 0.62;
-  color-scheme: dark;
-}
-
-:root[data-theme="light"] {
   --background: #f3f1ec;
   --ink: 26 26 24;
   --ink-strong: 20 20 19;
   --glow: rgb(255 255 255 / 0.55);
   --marker: #12935f;
   --grain-opacity: 0.085;
+  /* ambient light: cool upper left, warm lower right, a faint gold core */
   --ambient-a: rgb(118 148 226 / 0.3);
   --ambient-b: rgb(244 156 112 / 0.28);
   --ambient-c: rgb(255 204 96 / 0.22);
@@ -371,51 +356,12 @@ body::after {
   border: 0;
 }
 
-/* Right end of the header: theme switch (and the Menu button when folded). */
+/* Right end of the header: the Menu button when the links fold. */
 .site-header-tools {
   display: flex;
   align-items: center;
   gap: 18px;
   flex: none;
-}
-
-.theme-toggle {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  margin-right: -8px; /* optical: the disc's edge lines up with the gutter */
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: none;
-  color: rgb(var(--ink) / 0.78);
-  transition: color 0.2s ease;
-}
-
-.theme-toggle:hover {
-  color: rgb(var(--ink));
-}
-
-.theme-toggle:focus-visible {
-  outline: 1px solid rgb(var(--ink));
-  outline-offset: 2px;
-}
-
-.theme-toggle svg {
-  width: 17px;
-  height: 17px;
-  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-.theme-toggle svg[data-theme-icon="light"] {
-  transform: rotate(180deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .theme-toggle svg {
-    transition: none;
-  }
 }
 
 /* Below 820px five links no longer sit comfortably beside the logo. */

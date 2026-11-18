@@ -2,12 +2,11 @@
 
 Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from GitHub.
 
-- Themes: dark (default, `#141413`) and light (`#f3f1ec`), switched by `components/theme-toggle.tsx`
-  after the nav. Colours are tokens on `:root` / `:root[data-theme="light"]` in `app/globals.css`
-  (`--background`, `--ink`/`--ink-strong` as RGB triplets, `--glow`, `--marker`); use them, not literal
-  colours. The choice is saved in localStorage and applied before paint by `THEME_SCRIPT` in the layout.
+- Palette: light only (warm paper `#f3f1ec`, near-black ink). Colours are tokens on `:root` in
+  `app/globals.css` (`--background`, `--ink`/`--ink-strong` as RGB triplets, `--glow`, `--marker`,
+  `--ambient-a/b/c`); use them, not literal colours.
 - Background: ambient light (`.ambient` in the grain field: three slow-drifting radial glows, colours
-  `--ambient-a/b/c` per theme, after attentionx.org) plus interactive grain from `components/grain-field.tsx` (live flicker,
+  `--ambient-a/b/c`, after attentionx.org) plus interactive grain from `components/grain-field.tsx` (live flicker,
   pointer glow, pixel trail, cross cursor). Cursor bar geometry is pixel-snapped: keep `--bar` in
   `app/globals.css` and `BAR_PX` in the component in step. Static fallback grain is `body::after`,
   hidden via `:root[data-grain="live"]`.
@@ -35,7 +34,7 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
     scroll-in each counts up (digits written via refs, no re-render) while its rule draws in. Hover
     dims the others and fills the rule with `--marker`. The `+` is the serif italic in marker green.
   - Client wall: 15 logos traced to one-colour SVGs in `public/clients/` (list in `lib/clients.ts`),
-    drawn with CSS masks in the theme ink, sized by aspect ratio (`--grow` = ratio^0.55) so all
+    drawn with CSS masks in the ink colour, sized by aspect ratio (`--grow` = ratio^0.55) so all
     weigh the same; hairline grid, 5/3/2 columns. They rise in via `animation-timeline: view()`.
 - The scrollbar is hidden.
 - Respect `prefers-reduced-motion` for any new animation.

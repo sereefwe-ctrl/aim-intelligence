@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { THEME_SCRIPT } from "@/components/theme-toggle";
 import "./globals.css";
 
 /*
@@ -53,12 +52,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable}`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-      </head>
       <body>{children}</body>
     </html>
   );

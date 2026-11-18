@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AimLogo } from "@/components/aim-logo";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 /** Pause before the first expand, so the page opens on "✛ AIM". */
 const INTRO_DELAY_MS = 700;
@@ -91,7 +90,6 @@ export function SiteHeader() {
       </nav>
 
       <div className="site-header-tools">
-        <ThemeToggle />
         <button
           type="button"
           className="site-nav-toggle"
