@@ -727,9 +727,9 @@ body::after {
 
 .trusted-hand {
   display: block;
-  font-family: var(--font-hand), "Homemade Apple", cursive;
-  font-size: clamp(21px, 1.8vw, 27px);
-  line-height: 1.6;
+  font-family: var(--font-hand), "Nothing You Could Do", cursive;
+  font-size: clamp(26px, 2.3vw, 34px);
+  line-height: 1.25;
   color: rgb(var(--ink) / 0.86);
   transform: rotate(-6deg);
   transform-origin: left bottom;
@@ -743,7 +743,7 @@ body::after {
   width: clamp(58px, 4.8vw, 76px);
   height: auto;
   overflow: visible;
-  font-size: clamp(21px, 1.8vw, 27px);
+  font-size: clamp(26px, 2.3vw, 34px);
 }
 
 .trusted-arrow-ink {
@@ -785,7 +785,7 @@ body::after {
   --logo-u: 27px;
   --gap: 4.3125rem;
   --fade: 6rem;
-  --duration: 36s;
+  --duration: 60s;
   display: grid;
   row-gap: 3rem;
   overflow: hidden;

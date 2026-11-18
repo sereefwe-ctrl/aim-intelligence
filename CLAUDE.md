@@ -28,7 +28,7 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   drawn beneath the text, and the line holding it gets just enough margin to clear its neighbours.
 - Backers line: Samsung, Hyundai, LG Electronics, NAVER, and Mirae Asset Capital. `lib/backers.ts` (Simple Icons; Mirae Asset swoosh from Wikimedia Commons), each mark
   in a square badge, all items centred on one flex row. `scale` sets each mark's size in its badge.
-- Trusted by (`components/trusted.tsx`, `lib/trusted.ts`): handwritten note (Homemade Apple,
+- Trusted by (`components/trusted.tsx`, `lib/trusted.ts`): handwritten note (Nothing You Could Do,
   `--font-hand`) with a tapered pen-stroke arrow (`lib/arrow.ts`), then two logo rows drifting in opposite directions (60s linear,
   track = logos x4 sliding -50%, edge fades, pause on hover), after airfoil.studio. Logos are one-
   colour SVGs in `public/trusted/` drawn via CSS masks; height balanced by aspect ratio, `scale`
