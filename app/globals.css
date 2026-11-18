@@ -483,7 +483,7 @@ body::after {
 
 /* Sections set their own spacing; the footer follows the page. */
 .page {
-  padding-bottom: clamp(72px, 9vw, 140px);
+  padding-bottom: clamp(48px, 5vw, 80px);
 }
 
 /* ---- Headline (components/hero.tsx), after pantheon.inc ---- */
@@ -945,7 +945,7 @@ body::after {
 /* the closing headline (after exa.ai) */
 .footer-headline {
   margin: 0;
-  padding-top: clamp(96px, 11vw, 168px);
+  padding-top: clamp(56px, 6vw, 96px);
   font-family: var(--font-serif), "Instrument Serif", Georgia, serif;
   font-size: clamp(38px, 4.6vw, 72px);
   font-weight: 400;
