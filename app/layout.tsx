@@ -38,6 +38,14 @@ const geistMono = localFont({
   display: "swap",
 });
 
+// Nothing You Could Do: the handwritten "trusted by" note.
+const hand = localFont({
+  src: "../node_modules/@fontsource/nothing-you-could-do/files/nothing-you-could-do-latin-400-normal.woff2",
+  weight: "400",
+  variable: "--font-hand",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "AIM Intelligence",
   description:
@@ -52,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable}`}
+      className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable} ${hand.variable}`}
     >
       <body>{children}</body>
     </html>

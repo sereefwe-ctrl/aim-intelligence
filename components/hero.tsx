@@ -2,6 +2,7 @@ import { MarkerCircle } from "@/components/marker-circle";
 import { BACKERS } from "@/lib/backers";
 
 /**
+ * A "Latest" news link sits above it (after pantheon.inc).
  * Headline: white for the name and the key phrases, muted for the words that
  * connect them. On wider screens it breaks into its three parts: who we are,
  * what we build, and what for. "safe" and "under control." switch to the serif italic and are
@@ -13,6 +14,23 @@ export function Hero() {
   const last = BACKERS.length - 1;
   return (
     <section className="hero" aria-labelledby="hero-title">
+      <p className="hero-latest">
+        <a
+          href="https://blogs.nvidia.com/blog/korea-secure-agentic-ai/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="latest-tag">Latest</span>
+          <span className="latest-text">
+            NVIDIA: Hyundai Motor Group and AIM Intelligence explore NVIDIA
+            NemoClaw and OpenShell for secure enterprise agents
+          </span>
+          <span className="latest-arrow" aria-hidden="true">
+            →
+          </span>
+        </a>
+      </p>
+
       <h1 id="hero-title" className="hero-title">
         AIM Intelligence{" "}
         <span className="hero-muted">is an applied research lab</span>
