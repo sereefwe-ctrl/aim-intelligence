@@ -19,8 +19,9 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
 - Header: `components/site-header.tsx` renders the motion logo (`components/aim-logo.tsx`, paths in
   `lib/aim-logo.ts`, motion in the `.aim-logo` rules). Full logo at the top of the page, "✛ AIM" once
   scrolled; phones keep "✛ AIM". Nav links (About, Research, Products, Solutions, Careers, News) spread across
-  `--nav-span` on the right and fold into a Menu button below 820px; they point at `#anchors` until
-  pages exist. The header is clear at the top of the page; once scrolled (`data-scrolled`) a solid band
+  `--nav-span` on the right and fold into a Menu button below 820px; News goes to `/news`; the rest point at
+  home-page `#anchors` until their pages exist. The current page's link is `aria-current`.
+  The header is clear at the top of the page; once scrolled (`data-scrolled`) a solid band
   (`.site-header::before`, with a 36px fade below it) hides text passing beneath.
 - Headline: `components/hero.tsx` (`.hero` rules). White key phrases, 48% connecting words. From
   700px up, `.hero-break` splits it into its three parts. "safe" and "under control." are circled by
@@ -33,8 +34,9 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   track = logos x4 sliding -50%, edge fades, no hover effect), after airfoil.studio. Logos are one-
   colour SVGs in `public/trusted/` drawn via CSS masks; height balanced by aspect ratio, `scale`
   trims heavy marks. PSG is a typeset placeholder until the right PSG logo is confirmed.
-- News (`components/news.tsx`, `#news`): after the marquee, newest first; date, source lead-in +
-  headline, arrow; each row links out to the article (after attentionx.org). Dates are the articles' own.
+- News page (`app/news/page.tsx`, `components/news.tsx`): its own route, not on the home page. Large
+  light "News" title, then the articles newest first: date, source lead-in + headline, arrow; each row
+  links out to the article (after attentionx.org). Dates are the articles' own (arXiv: first version).
 - Footer (`components/site-footer.tsx`), after exa.ai: "AIM Intelligence" label, closing headline in
   upright Instrument Serif ("The question is no longer “What can we do with AI?” It is “Who keeps it
   under control?”", second sentence on its own line), a hairline across the screen, link columns (serif

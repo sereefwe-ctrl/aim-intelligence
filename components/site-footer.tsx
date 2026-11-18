@@ -1,6 +1,10 @@
+import Link from "next/link";
 import { AIM_LOGO } from "@/lib/aim-logo";
 
-/** Footer columns. Destinations are placeholders until those pages exist. */
+/**
+ * Footer columns. Apart from News, destinations are placeholders until those
+ * pages exist.
+ */
 const COLUMNS = [
   {
     title: "Research",
@@ -20,12 +24,15 @@ const COLUMNS = [
   },
 ];
 
-const slug = (s: string) =>
-  "#" +
-  s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+const PAGES: Record<string, string> = { News: "/news" };
+
+const href = (label: string) =>
+  PAGES[label] ??
+  "/#" +
+    label
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
 
 /**
  * Footer, after exa.ai: the company name, a closing headline in the serif, a
@@ -51,7 +58,7 @@ export function SiteFooter() {
             <ul>
               {col.links.map((label) => (
                 <li key={label}>
-                  <a href={slug(label)}>{label}</a>
+                  <Link href={href(label)}>{label}</Link>
                 </li>
               ))}
             </ul>
@@ -61,10 +68,10 @@ export function SiteFooter() {
           <h2 className="footer-heading">Work with AIM</h2>
           <ul>
             <li>
-              <a href="#contact">Book a demo</a>
+              <Link href="/#contact">Book a demo</Link>
             </li>
             <li>
-              <a href="#contact">Contact sales</a>
+              <Link href="/#contact">Contact sales</Link>
             </li>
           </ul>
         </div>

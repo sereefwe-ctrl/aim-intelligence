@@ -1,20 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AimLogo } from "@/components/aim-logo";
 
 /** Pause before the first expand, so the page opens on "✛ AIM". */
 const INTRO_DELAY_MS = 400;
 
-/** Top navigation. The pages don't exist yet, so these point at section anchors. */
+/**
+ * Top navigation. News is its own page; the rest point at home-page anchors
+ * until their pages exist.
+ */
 const NAV = [
-  { label: "About", href: "#about" },
-  { label: "Research", href: "#research" },
-  { label: "Products", href: "#products" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Careers", href: "#careers" },
-  { label: "News", href: "#news" },
+  { label: "About", href: "/#about" },
+  { label: "Research", href: "/#research" },
+  { label: "Products", href: "/#products" },
+  { label: "Solutions", href: "/#solutions" },
+  { label: "Careers", href: "/#careers" },
+  { label: "News", href: "/news" },
 ];
 
 /**
@@ -26,6 +30,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const phone = window.matchMedia("(max-width: 639px)");
@@ -81,9 +86,13 @@ export function SiteHeader() {
         <ul>
           {NAV.map((item) => (
             <li key={item.href}>
-              <a href={item.href} onClick={() => setMenuOpen(false)}>
+              <Link
+                href={item.href}
+                aria-current={pathname === item.href ? "page" : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
                 {item.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

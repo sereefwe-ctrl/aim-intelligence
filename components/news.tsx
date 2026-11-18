@@ -1,5 +1,5 @@
 /**
- * News: newest first. Each row is a link out to the article: date, then the
+ * The News page (/news): a title, then the articles, newest first. Each row is a link out to the article: date, then the
  * source as a lead-in and the headline, then an arrow (after attentionx.org).
  * Dates are the articles' own publish dates (for arXiv papers, the first
  * version).
@@ -44,10 +44,10 @@ const fmt = (iso: string) =>
 
 export function News() {
   return (
-    <section id="news" className="news" aria-labelledby="news-title">
-      <h2 id="news-title" className="news-eyebrow">
+    <section className="news" aria-labelledby="news-title">
+      <h1 id="news-title" className="news-heading">
         News
-      </h2>
+      </h1>
       <ul className="news-list">
         {NEWS.map((n) => (
           <li key={n.href}>
