@@ -20,8 +20,8 @@ Next.js 16 App Router + TypeScript + Tailwind CSS v4. Deployed on Vercel from Gi
   `lib/aim-logo.ts`, motion in the `.aim-logo` rules). Full logo at the top of the page, "✛ AIM" once
   scrolled; phones keep "✛ AIM". Nav links (About, Research, Products, Solutions, Careers, News) spread across
   `--nav-span` on the right and fold into a Menu button below 820px; they point at `#anchors` until
-  pages exist. The header is clear at the top of the page; once scrolled (`data-scrolled`) a frosted glass veil
-  (`.site-header::before`, soft lower edge) keeps text passing beneath from competing with it.
+  pages exist. The header is clear at the top of the page; once scrolled (`data-scrolled`) a solid band
+  (`.site-header::before`, with a 36px fade below it) hides text passing beneath.
 - Headline: `components/hero.tsx` (`.hero` rules). White key phrases, 48% connecting words. From
   700px up, `.hero-break` splits it into its three parts. "safe" and "under control." are circled by
   `components/marker-circle.tsx`: the loop is fitted to the glyphs' real ink (canvas measurement),
