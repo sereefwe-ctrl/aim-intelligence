@@ -1,13 +1,52 @@
 # AIM Intelligence
 
-A blank page: warm charcoal background (`#141413`) with interactive film grain and the AIM INTELLIGENCE
-motion logo in the header.
-Next.js 16 + Tailwind CSS v4, deployed on Vercel from GitHub.
+The AIM Intelligence website: a soft vanilla page with live film grain, the motion logo, the headline
+with hand-drawn marker circles, the "trusted by" logo marquee, a News page and the footer.
+Next.js 16 (App Router) + TypeScript + Tailwind CSS v4, deployed on Vercel from GitHub.
+
+## Run it
+
+You need [Node.js](https://nodejs.org) 22 or newer.
 
 ```bash
 npm install
 npm run dev
 ```
+
+Then open http://localhost:3000. Pages reload as you edit.
+
+Before sharing a change, check it:
+
+```bash
+npm run lint && npm run typecheck && npm run build
+npm run format
+```
+
+## Where things are
+
+| What                                        | Files                                                                         |
+| ------------------------------------------- | ----------------------------------------------------------------------------- |
+| Home page / News page                       | `app/page.tsx`, `app/news/page.tsx`                                           |
+| Fonts, page title                           | `app/layout.tsx`                                                              |
+| All styling (colours are tokens at the top) | `app/globals.css`                                                             |
+| Loading screen                              | `components/intro-loader.tsx`                                                 |
+| Header and motion logo                      | `components/site-header.tsx`, `components/aim-logo.tsx`, `lib/aim-logo.ts`    |
+| Headline, marker circles, backers line      | `components/hero.tsx`, `components/marker-circle.tsx`, `lib/backers.ts`       |
+| "trusted by" note and logo rows             | `components/trusted.tsx`, `lib/trusted.ts`, `lib/arrow.ts`, `public/trusted/` |
+| Benchmark / Research / Careers columns      | `components/highlights.tsx`                                                   |
+| News articles                               | `components/news.tsx`                                                         |
+| Footer, links, badges                       | `components/site-footer.tsx`, `public/certs/`                                 |
+| Grain, pointer trail, cross cursor          | `components/grain-field.tsx`                                                  |
+
+`CLAUDE.md` describes every part of the design in more detail (sizes, timings, references).
+
+Common edits:
+
+- **Text**: the words live in the component files above (for example the headline in
+  `components/hero.tsx`, the footer quote in `components/site-footer.tsx`).
+- **News**: add an entry to the `NEWS` list at the top of `components/news.tsx`.
+- **Logos in the marquee**: add a one-colour SVG to `public/trusted/` and list it in `lib/trusted.ts`.
+- **Colours**: change the tokens on `:root` in `app/globals.css` rather than writing colours inline.
 
 ## The grain
 
@@ -28,9 +67,7 @@ a static grain texture (`public/textures/grain.webp`) is shown instead.
 Tune it with the constants at the top of `components/grain-field.tsx` and the CSS
 variables / `.grain-*` rules in `app/globals.css`.
 
-## The header logo
+## Motion
 
-`components/site-header.tsx` shows the logo in a sticky header. It opens as "✛ AIM", then INTELLIGENCE
-slides out from behind the M while the cross turns 180° clockwise. Scrolling down collapses it back to
-"✛ AIM"; returning to the top expands it again. Timing follows Anthropic's header logo: 633ms on
-`cubic-bezier(0.77, 0, 0.175, 1)`, letters fading over one half of the motion. Phones keep "✛ AIM".
+Every animation respects the system's reduced-motion setting: the loading screen is skipped, the
+marker circles appear already drawn and the logo rows stop.
